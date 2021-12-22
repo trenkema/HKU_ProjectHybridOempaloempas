@@ -45,7 +45,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 obj.enabled = false;
             }
 
-            PhotonNetwork.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
+            {
+                PhotonNetwork.Instantiate(pawnPrefab, Vector3.zero, Quaternion.identity);
+            }
+            else
+            {
+                PhotonNetwork.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            }
         }
     }
 

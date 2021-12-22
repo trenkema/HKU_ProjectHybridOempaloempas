@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
         if (!PV.IsMine)
         {
             Destroy(playerHUD);
-            Destroy(cameraHolder);
+            Destroy(cameraHolder.gameObject);
             enabled = false;
             return;
         }
