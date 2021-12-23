@@ -12,6 +12,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     [SerializeField] string pawnPrefab;
     [SerializeField] string mainMenuScene;
 
+    [SerializeField] InteractionController[] interactionControllers;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,7 +49,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
             {
-                PhotonNetwork.Instantiate(pawnPrefab, Vector3.zero, Quaternion.identity);
+                int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
+
+                foreach (var interactionController in interactionControllers)
+                {
+                    if (interactionController.GetInteractableIndex() == pawnID)
+                    {
+                        interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+                        break;
+                    }
+                }
             }
             else
             {

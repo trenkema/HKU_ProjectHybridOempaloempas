@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 public class InteractionManager : MonoBehaviour
 {
@@ -18,8 +19,21 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI promptTalkText;
     private Camera cam;
 
+    private PhotonView PV;
+
+    private void Awake()
+    {
+        PV = GetComponent<PhotonView>();
+    }
+
     private void Start()
     {
+        if (!PV.IsMine)
+        {
+            enabled = false;
+            return;
+        }
+
         cam = Camera.main;
     }
 
