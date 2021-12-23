@@ -38,25 +38,28 @@ public class SpatialAudio : MonoBehaviour
         if (!PV.IsMine)
             return;
 
-        foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
+        if (PhotonNetwork.PlayerList.Length > 1)
         {
-            if (player.IsLocal)
-                continue;
-
-            if (player.CustomProperties.TryGetValue("AgoraID", out object agoraID))
+            foreach (Player player in PhotonNetwork.CurrentRoom.Players.Values)
             {
-                if (spatialAudioFromPlayers.ContainsKey(player))
-                {
-                    SpatialAudio other = spatialAudioFromPlayers[player];
+                if (player.IsLocal)
+                    continue;
 
-                    float gain = GetGain(other.transform.position);
-                    float pan = GetPan(other.transform.position);
-
-                    agoraAudioEffects.SetRemoteVoicePosition(uint.Parse((string)agoraID), pan, gain);
-                }
-                else
+                if (player.CustomProperties.TryGetValue("AgoraID", out object agoraID))
                 {
-                    agoraAudioEffects.SetRemoteVoicePosition(uint.Parse((string)agoraID), 0, 0);
+                    if (spatialAudioFromPlayers.ContainsKey(player))
+                    {
+                        SpatialAudio other = spatialAudioFromPlayers[player];
+
+                        float gain = GetGain(other.transform.position);
+                        float pan = GetPan(other.transform.position);
+
+                        agoraAudioEffects.SetRemoteVoicePosition(uint.Parse((string)agoraID), pan, gain);
+                    }
+                    else
+                    {
+                        agoraAudioEffects.SetRemoteVoicePosition(uint.Parse((string)agoraID), 0, 0);
+                    }
                 }
             }
         }

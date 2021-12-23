@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance;
 
-
     [Header("Player Look")]
     [SerializeField] Transform cameraHolder;
     [SerializeField] Transform playerTransform;
@@ -37,6 +36,9 @@ public class PlayerController : MonoBehaviour
 
     private PhotonView PV;
 
+    private bool hasBattery = false;
+    private bool hasLightBulb = false;
+
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        EventSystemNew<int>.Subscribe(Event_Type.ADD_ITEM, AddInventoryItem);
     }
 
     private void LateUpdate()
@@ -66,6 +70,19 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void AddInventoryItem(int _itemID)
+    {
+        switch (_itemID)
+        {
+            case 0:
+                hasBattery = true;
+                break;
+            case 1:
+                hasLightBulb = true;
+                break;
+        }
     }
 
     private void Move()

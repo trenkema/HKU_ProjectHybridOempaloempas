@@ -13,6 +13,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     [SerializeField] InteractionController[] interactionControllers;
 
+    private bool hasLeft = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,7 +70,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
-        PhotonNetwork.LeaveRoom();
+        if (!hasLeft)
+        {
+            hasLeft = true;
+            PhotonNetwork.LeaveRoom();
+        }
     }
 
     public override void OnLeftRoom()

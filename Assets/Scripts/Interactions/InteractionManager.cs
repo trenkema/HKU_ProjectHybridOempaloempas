@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 
-public class InteractionManager : MonoBehaviourPunCallbacks
+public class InteractionManager : MonoBehaviourPun
 {
     [SerializeField] Transform pickupHolder;
 
@@ -17,14 +17,17 @@ public class InteractionManager : MonoBehaviourPunCallbacks
     private GameObject curInteractGameObject;
     private IInteractable curInteractable;
 
+    private GameObject curPickedupInteractGameObject;
+    private IInteractable curPickedupInteractable;
+
     [SerializeField] private TextMeshProUGUI promptPickupText;
     [SerializeField] private TextMeshProUGUI promptTalkText;
     [SerializeField] private TextMeshProUGUI promptPetText;
 
-    [SerializeField] GameObject[] interactionObjects;
-
     private Camera cam;
 
+    private bool isHolding = false;
+    
     private PhotonView PV;
 
     private void Awake()
@@ -39,7 +42,7 @@ public class InteractionManager : MonoBehaviourPunCallbacks
             enabled = false;
             return;
         }
-
+        
         cam = Camera.main;
     }
 
@@ -54,7 +57,7 @@ public class InteractionManager : MonoBehaviourPunCallbacks
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
-                if (hit.collider.gameObject != curInteractGameObject)
+                if (hit.collider.gameObject != curInteractGameObject && hit.collider.gameObject != curPickedupInteractGameObject)
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
@@ -115,23 +118,50 @@ public class InteractionManager : MonoBehaviourPunCallbacks
 
     public void OnPickupInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        if (context.phase == InputActionPhase.Started && curInteractable != null && !isHolding)
         {
             foreach (var interactable in curInteractable.interactableTypeSelector)
             {
                 if (interactable.interactableTypes == InteractableTypes.Pickupable)
                 {
-                    Debug.Log("Pickup Object");
+                    if (curInteractGameObject.GetComponent<InventoryPickupable>() != null)
+                    {
+                        switch (curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables)
+                        {
+                            case InventoryPickupables.Battery:
+                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, 0);
+                                break;
+                            case InventoryPickupables.LightBulb:
+                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, 1);
+                                break;
+                        }
+
+                        Destroy(curInteractGameObject);
+                        return;
+                    }
+
+                    isHolding = true;
+
+                    curPickedupInteractable = curInteractable;
+                    curPickedupInteractGameObject = curInteractGameObject;
 
                     curInteractable.OnInteract(1);
+                    curInteractable.SyncPosition(PV.ViewID);
 
                     curInteractGameObject.transform.parent = pickupHolder;
                     curInteractGameObject.transform.localPosition = Vector3.zero;
-
-                    curInteractGameObject = null;
-                    curInteractable = null;
                 }
             }
+        }
+        else if (context.phase == InputActionPhase.Started && curPickedupInteractable != null && isHolding)
+        {
+            isHolding = false;
+
+            curPickedupInteractable.SyncPosition(-1);
+            curPickedupInteractGameObject.transform.SetParent(null);
+
+            curPickedupInteractable = null;
+            curPickedupInteractGameObject = null;
         }
     }
 
