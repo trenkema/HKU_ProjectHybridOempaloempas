@@ -7,7 +7,6 @@ public enum InteractableTypes { Pickupable, Speakable }
 public abstract class IInteractable : MonoBehaviour
 {
     public InteractableTypes interactableType;
-
     public abstract string GetInteractPrompt();
     public abstract void OnInteract();
 }
