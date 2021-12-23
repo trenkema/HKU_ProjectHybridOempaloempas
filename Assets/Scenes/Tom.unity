@@ -291,7 +291,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &84417368
 PrefabInstance:
@@ -1569,7 +1569,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToDisable: []
   playerPrefab: Player
-  pawnPrefab: Pawn
   mainMenuScene: TomScene
   interactionControllers:
   - {fileID: 1088866868}
@@ -1585,7 +1584,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &851082716
 PrefabInstance:
@@ -1740,7 +1739,7 @@ Transform:
   m_Children:
   - {fileID: 1088866861}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1033322457
 MonoBehaviour:
@@ -1850,6 +1849,7 @@ GameObject:
   - component: {fileID: 1088866867}
   - component: {fileID: 1088866866}
   - component: {fileID: 1088866869}
+  - component: {fileID: 1088866862}
   m_Layer: 6
   m_Name: Interactable_Lamp
   m_TagString: Untagged
@@ -1874,6 +1874,22 @@ Transform:
   m_Father: {fileID: 1018929166}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1088866862
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088866860}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &1088866863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2096,6 +2112,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ce02c6ca-c0a7-4b17-ae92-1aae125ab4f7
     m_ActionName: Player/Pet[/Keyboard/r,/DualShock4GamepadHID/rightShoulder,/DualShock4GamepadHID/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 850820067}
+        m_TargetAssemblyTypeName: RoomManager, Assembly-CSharp
+        m_MethodName: LeaveRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a99313dc-ae5f-47d7-8013-b15e1693f012
+    m_ActionName: Player/Leave[/Keyboard/l]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2130,7 +2162,6 @@ MonoBehaviour:
   - interactableTypes: 0
   - interactableTypes: 1
   - interactableTypes: 2
-  interactableType: 0
   displayName: Lamp
   indicatorTexts:
   - {fileID: 742842919}
@@ -2887,7 +2918,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1932025582
 GameObject:

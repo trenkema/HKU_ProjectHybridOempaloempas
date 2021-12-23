@@ -52,7 +52,7 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
 
         int newPawnID = currentPawnID + 1;
 
-        if (newPawnID > 6)
+        if (newPawnID > maxPawnID)
         {
             newPawnID = 0;
         }
