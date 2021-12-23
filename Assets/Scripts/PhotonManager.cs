@@ -156,6 +156,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
+        PhotonNetwork.LocalPlayer.CustomProperties.Clear();
         PhotonNetwork.LeaveRoom();
         loadingMenu.SetActive(true);
     }

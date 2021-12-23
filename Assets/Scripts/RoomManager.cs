@@ -9,7 +9,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public static RoomManager Instance;
     [SerializeField] MeshRenderer[] objectsToDisable;
     [SerializeField] string playerPrefab;
-    [SerializeField] string pawnPrefab;
     [SerializeField] string mainMenuScene;
 
     [SerializeField] InteractionController[] interactionControllers;

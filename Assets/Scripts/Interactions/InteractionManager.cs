@@ -5,18 +5,24 @@ using TMPro;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 
-public class InteractionManager : MonoBehaviour
+public class InteractionManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] Transform pickupHolder;
+
     [SerializeField] private float checkRate = 0.05f;
-    private float lastCheckTime;
     [SerializeField] private float maxCheckDistance;
     [SerializeField] private LayerMask layerMask;
+    private float lastCheckTime;
 
     private GameObject curInteractGameObject;
-    private IInteractable[] curInteractable;
+    private IInteractable curInteractable;
 
     [SerializeField] private TextMeshProUGUI promptPickupText;
     [SerializeField] private TextMeshProUGUI promptTalkText;
+    [SerializeField] private TextMeshProUGUI promptPetText;
+
+    [SerializeField] GameObject[] interactionObjects;
+
     private Camera cam;
 
     private PhotonView PV;
@@ -51,7 +57,8 @@ public class InteractionManager : MonoBehaviour
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
                     curInteractGameObject = hit.collider.gameObject;
-                    curInteractable = hit.collider.GetComponents<IInteractable>();
+                    curInteractable = hit.collider.GetComponent<IInteractable>();
+
                     SetPromptText();
                 }
             }
@@ -59,47 +66,34 @@ public class InteractionManager : MonoBehaviour
             {
                 curInteractGameObject = null;
                 curInteractable = null;
+
                 promptTalkText.gameObject.SetActive(false);
                 promptPickupText.gameObject.SetActive(false);
+                promptPetText.gameObject.SetActive(false);
             }
         }
     }
 
     private void SetPromptText()
     {
-        foreach (var interactable in curInteractable)
+        foreach (var interactable in curInteractable.interactableTypeSelector)
         {
-            switch (interactable.interactableType)
+            switch (interactable.interactableTypes)
             {
                 case InteractableTypes.Pickupable:
                     promptPickupText.gameObject.SetActive(true);
-                    promptPickupText.text = string.Format("<b>[E]</b> {0}", interactable.GetInteractPrompt());
+                    promptPickupText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Pickupable));
                     break;
                 case InteractableTypes.Speakable:
                     promptTalkText.gameObject.SetActive(true);
-                    promptTalkText.text = string.Format("<b>[Q]</b> {0}", interactable.GetInteractPrompt());
+                    promptTalkText.text = string.Format("<b>[Q]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Speakable));
+                    break;
+                case InteractableTypes.Petable:
+                    promptPetText.gameObject.SetActive(true);
+                    promptPetText.text = string.Format("<b>[R]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Petable));
                     break;
             }
 
-        }
-    }
-
-    public void OnPickupInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
-        {
-            for (int i = 0; i < curInteractable.Length; i++)
-            {
-                if (curInteractable[i].interactableType == InteractableTypes.Pickupable)
-                {
-                    curInteractable[i].OnInteract();
-                    promptPickupText.gameObject.SetActive(false);
-                    promptTalkText.gameObject.SetActive(false);
-
-                    curInteractGameObject = null;
-                    curInteractable[i] = null;
-                }
-            }
         }
     }
 
@@ -107,14 +101,51 @@ public class InteractionManager : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
-            for (int i = 0; i < curInteractable.Length; i++)
+            foreach (var interactable in curInteractable.interactableTypeSelector)
             {
-                if (curInteractable[i].interactableType == InteractableTypes.Speakable)
+                if (interactable.interactableTypes == InteractableTypes.Speakable)
                 {
-                    curInteractable[i].OnInteract();
-                    promptTalkText.gameObject.SetActive(false);
+                    Debug.Log("Speak With Object");
 
-                    curInteractable[i] = null;
+                    curInteractable.OnInteract(0);
+                }
+            }
+        }
+    }
+
+    public void OnPickupInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            foreach (var interactable in curInteractable.interactableTypeSelector)
+            {
+                if (interactable.interactableTypes == InteractableTypes.Pickupable)
+                {
+                    Debug.Log("Pickup Object");
+
+                    curInteractable.OnInteract(1);
+
+                    curInteractGameObject.transform.parent = pickupHolder;
+                    curInteractGameObject.transform.localPosition = Vector3.zero;
+
+                    curInteractGameObject = null;
+                    curInteractable = null;
+                }
+            }
+        }
+    }
+
+    public void OnPetInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            foreach (var interactable in curInteractable.interactableTypeSelector)
+            {
+                if (interactable.interactableTypes == InteractableTypes.Petable)
+                {
+                    Debug.Log("Pet Object");
+
+                    curInteractable.OnInteract(2);
                 }
             }
         }

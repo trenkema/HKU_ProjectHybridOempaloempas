@@ -22,6 +22,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Speak",
+                    "type": "Button",
+                    "id": "ce70d263-7861-49a2-bd48-8ade1dfd7ee6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pickup",
                     "type": "Button",
                     "id": "e34fbbcc-5e71-45e8-9e96-2dc773018a4a",
@@ -30,9 +38,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Speak",
+                    "name": "Pet",
                     "type": "Button",
-                    "id": "ce70d263-7861-49a2-bd48-8ade1dfd7ee6",
+                    "id": "ce02c6ca-c0a7-4b17-ae92-1aae125ab4f7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -52,7 +60,7 @@
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=2,y=2)",
                     "groups": ";Gamepad",
                     "action": "Move",
                     "isComposite": false,
@@ -242,6 +250,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Speak",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "82db011d-fc7e-444c-8d60-84219c705928",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pet",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "962b0d39-bc7e-435a-8591-dac8c5c2271b",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pet",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
