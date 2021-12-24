@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using UnityEngine.InputSystem;
 
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
     [SerializeField] MeshRenderer[] objectsToDisable;
     [SerializeField] string playerPrefab;
+    [SerializeField] Transform playerSpawnPoint;
     [SerializeField] string mainMenuScene;
 
     [SerializeField] InteractionController[] interactionControllers;
 
+    private InteractionController curInteractionController = null;
+
     private bool hasLeft = false;
+
+    private bool isPawn = false;
+
+    private bool runAgain = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,6 +51,9 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         if (scene.buildIndex == 1)
         {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             foreach (var obj in objectsToDisable)
             {
                 obj.enabled = false;
@@ -51,19 +62,65 @@ public class RoomManager : MonoBehaviourPunCallbacks
             if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
             {
                 int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
+                Debug.Log("PawnID: " + pawnID);
 
                 foreach (var interactionController in interactionControllers)
                 {
                     if (interactionController.GetInteractableIndex() == pawnID)
                     {
-                        interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+                        Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
+                        isPawn = true;
+                        curInteractionController = interactionController;
+                        curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
                         break;
                     }
                 }
             }
             else
             {
-                PhotonNetwork.Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+                PhotonNetwork.Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+            }
+        }
+    }
+
+    public void ChangePawn(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started || runAgain)
+        {
+            runAgain = false;
+
+            if (isPawn)
+            {
+                if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
+                {
+                    int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
+                    int newPawnID = pawnID + 1;
+
+                    if (newPawnID > interactionControllers.Length-1)
+                        newPawnID = 0;
+
+                    foreach (var interactionController in interactionControllers)
+                    {
+                        if (interactionController.GetInteractableIndex() == newPawnID)
+                        {
+                            if (!interactionController.GetIsAssigned())
+                            {
+                                curInteractionController.RemoveControl();
+                                curInteractionController = interactionController;
+                                interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
+                                break;
+                            }
+                            else
+                            {
+                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
+                                runAgain = true;
+                                ChangePawn(context);
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -73,6 +130,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (!hasLeft)
         {
             hasLeft = true;
+            PhotonNetwork.LocalPlayer.CustomProperties.Clear();
             PhotonNetwork.LeaveRoom();
         }
     }

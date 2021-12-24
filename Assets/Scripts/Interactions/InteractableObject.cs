@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.InputSystem;
 
 public class InteractableObject : IInteractable
 {
@@ -32,29 +33,60 @@ public class InteractableObject : IInteractable
         return null;
     }
 
-    public override void OnInteract(int _interactIndex)
+    public override void OnInteract(int _interactIndex, int _interactableIndex, GameObject _interactor)
     {
-        PV.RPC("RPC_OnInteract", RpcTarget.All, _interactIndex);
+        if (isAssigned)
+        {
+            PV.RPC("RPC_OnInteract", RpcTarget.All, _interactIndex, _interactableIndex);
+        }
     }
 
     [PunRPC]
-    public override void RPC_OnInteract(int _interactionIndex)
+    public override void RPC_OnInteract(int _interactionIndex, int _interactableIndex)
     {
         if (!PV.IsMine)
             return;
 
-        indicatorTexts[_interactionIndex].SetActive(true);
+        if (interactableIndex == _interactableIndex)
+        {
+            Debug.Log("Show Interaction Text");
+            indicatorTexts[_interactionIndex].SetActive(true);
+        }
     }
-
-    public override void SyncPosition(int _viewID)
+    
+    public override void TakeControl(bool _takeControl, int _interactableIndex)
     {
-        PV.RPC("RPC_SyncPosition", RpcTarget.All, _viewID);
+        if (!PV.IsMine)
+            return;
+
+        if (interactableIndex == _interactableIndex)
+        {
+            foreach (var indicatorText in indicatorTexts)
+            {
+                indicatorText.SetActive(false);
+            }
+
+            isAssigned = _takeControl;
+            PV.RPC("RPC_TakeControl2", RpcTarget.Others, true, interactableIndex);
+        }
     }
 
     [PunRPC]
-    public void RPC_SyncPosition(int _viewID)
+    public void RPC_TakeControl2(bool _hasControl, int _interactableIndex)
     {
-        if (_viewID != -1)
+        if (interactableIndex == _interactableIndex)
+            isAssigned = _hasControl;
+    }
+
+    public override void PickupObject(int _viewID)
+    {
+        PV.RPC("RPC_PickupObject", RpcTarget.All, _viewID, interactableIndex);
+    }
+
+    [PunRPC]
+    public void RPC_PickupObject(int _viewID, int _interactableIndex)
+    {
+        if (_viewID != -1 && interactableIndex == _interactableIndex)
         {
             GameObject GO = PhotonView.Find(_viewID).gameObject;
 
@@ -71,7 +103,7 @@ public class InteractableObject : IInteractable
                 Debug.LogError("Player Misses Pickup Script");
             }
         }
-        else if (_viewID == -1)
+        else if (_viewID == -1 && interactableIndex == _interactableIndex)
         {
             transform.SetParent(null);
             rb.useGravity = true;

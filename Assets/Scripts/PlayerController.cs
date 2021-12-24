@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour
 
     private bool hasBattery = false;
     private bool hasLightBulb = false;
+    private bool hasPaper = false;
+
+    [SerializeField] GameObject inventoryText;
+    [SerializeField] GameObject[] inventoryIcons;
 
     private void Awake()
     {
@@ -72,15 +76,48 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
-    private void AddInventoryItem(int _itemID)
+    public void AddInventoryItem(int _itemID)
     {
         switch (_itemID)
         {
-            case 0:
+            case -1:
                 hasBattery = true;
+                hasLightBulb = false;
+                hasPaper = false;
+
+                foreach (var inventoryIcon in inventoryIcons)
+                {
+                    inventoryIcon.SetActive(false);
+                }
+
+                inventoryText.SetActive(true);
+                inventoryIcons[0].SetActive(true);
                 break;
-            case 1:
+            case -2:
                 hasLightBulb = true;
+                hasBattery = false;
+                hasPaper = false;
+
+                foreach (var inventoryIcon in inventoryIcons)
+                {
+                    inventoryIcon.SetActive(false);
+                }
+
+                inventoryText.SetActive(true);
+                inventoryIcons[1].SetActive(true);
+                break;
+            case -3:
+                hasPaper = true;
+                hasBattery = false;
+                hasLightBulb = false;
+
+                foreach (var inventoryIcon in inventoryIcons)
+                {
+                    inventoryIcon.SetActive(false);
+                }
+
+                inventoryText.SetActive(true);
+                inventoryIcons[2].SetActive(true);
                 break;
         }
     }

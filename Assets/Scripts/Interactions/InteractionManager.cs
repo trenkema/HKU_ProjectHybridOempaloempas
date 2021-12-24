@@ -12,6 +12,7 @@ public class InteractionManager : MonoBehaviourPun
     [SerializeField] private float checkRate = 0.05f;
     [SerializeField] private float maxCheckDistance;
     [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask blockingMask;
     private float lastCheckTime;
 
     private GameObject curInteractGameObject;
@@ -27,7 +28,7 @@ public class InteractionManager : MonoBehaviourPun
     private Camera cam;
 
     private bool isHolding = false;
-    
+
     private PhotonView PV;
 
     private void Awake()
@@ -42,7 +43,7 @@ public class InteractionManager : MonoBehaviourPun
             enabled = false;
             return;
         }
-        
+
         cam = Camera.main;
     }
 
@@ -54,15 +55,19 @@ public class InteractionManager : MonoBehaviourPun
 
             Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             RaycastHit hit;
+            RaycastHit hit2;
 
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
             {
-                if (hit.collider.gameObject != curInteractGameObject && hit.collider.gameObject != curPickedupInteractGameObject)
+                if (!Physics.Raycast(ray, out hit2, hit.distance, blockingMask))
                 {
-                    curInteractGameObject = hit.collider.gameObject;
-                    curInteractable = hit.collider.GetComponent<IInteractable>();
+                    if (hit.collider.gameObject != curInteractGameObject && hit.collider.gameObject != curPickedupInteractGameObject)
+                    {
+                        curInteractGameObject = hit.collider.gameObject;
+                        curInteractable = hit.collider.GetComponentInParent<IInteractable>();
 
-                    SetPromptText();
+                        SetPromptText();
+                    }
                 }
             }
             else
@@ -95,6 +100,10 @@ public class InteractionManager : MonoBehaviourPun
                     promptPetText.gameObject.SetActive(true);
                     promptPetText.text = string.Format("<b>[R]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Petable));
                     break;
+                case InteractableTypes.Insertable:
+                    promptPickupText.gameObject.SetActive(true);
+                    promptPickupText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
+                    break;
             }
 
         }
@@ -110,7 +119,7 @@ public class InteractionManager : MonoBehaviourPun
                 {
                     Debug.Log("Speak With Object");
 
-                    curInteractable.OnInteract(0);
+                    curInteractable.OnInteract(0, curInteractable.interactableIndex, gameObject);
                 }
             }
         }
@@ -129,14 +138,17 @@ public class InteractionManager : MonoBehaviourPun
                         switch (curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables)
                         {
                             case InventoryPickupables.Battery:
-                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, 0);
+                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -1);
                                 break;
                             case InventoryPickupables.LightBulb:
-                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, 1);
+                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -2);
+                                break;
+                            case InventoryPickupables.Paper:
+                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -3);
                                 break;
                         }
 
-                        Destroy(curInteractGameObject);
+                        PhotonNetwork.Destroy(curInteractGameObject);
                         return;
                     }
 
@@ -145,8 +157,8 @@ public class InteractionManager : MonoBehaviourPun
                     curPickedupInteractable = curInteractable;
                     curPickedupInteractGameObject = curInteractGameObject;
 
-                    curInteractable.OnInteract(1);
-                    curInteractable.SyncPosition(PV.ViewID);
+                    curInteractable.OnInteract(1, curInteractable.interactableIndex, gameObject);
+                    curInteractable.PickupObject(PV.ViewID);
 
                     curInteractGameObject.transform.parent = pickupHolder;
                     curInteractGameObject.transform.localPosition = Vector3.zero;
@@ -157,7 +169,7 @@ public class InteractionManager : MonoBehaviourPun
         {
             isHolding = false;
 
-            curPickedupInteractable.SyncPosition(-1);
+            curPickedupInteractable.PickupObject(-1);
             curPickedupInteractGameObject.transform.SetParent(null);
 
             curPickedupInteractable = null;
@@ -175,7 +187,7 @@ public class InteractionManager : MonoBehaviourPun
                 {
                     Debug.Log("Pet Object");
 
-                    curInteractable.OnInteract(2);
+                    curInteractable.OnInteract(2, curInteractable.interactableIndex, gameObject);
                 }
             }
         }
