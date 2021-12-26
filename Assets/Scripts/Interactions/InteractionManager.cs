@@ -23,7 +23,6 @@ public class InteractionManager : MonoBehaviourPun
 
     [SerializeField] private TextMeshProUGUI promptPickupText;
     [SerializeField] private TextMeshProUGUI promptTalkText;
-    [SerializeField] private TextMeshProUGUI promptPetText;
 
     private Camera cam;
 
@@ -77,7 +76,6 @@ public class InteractionManager : MonoBehaviourPun
 
                 promptTalkText.gameObject.SetActive(false);
                 promptPickupText.gameObject.SetActive(false);
-                promptPetText.gameObject.SetActive(false);
             }
         }
     }
@@ -96,13 +94,9 @@ public class InteractionManager : MonoBehaviourPun
                     promptTalkText.gameObject.SetActive(true);
                     promptTalkText.text = string.Format("<b>[Q]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Speakable));
                     break;
-                case InteractableTypes.Petable:
-                    promptPetText.gameObject.SetActive(true);
-                    promptPetText.text = string.Format("<b>[R]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Petable));
-                    break;
                 case InteractableTypes.Insertable:
                     promptPickupText.gameObject.SetActive(true);
-                    promptPickupText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
+                    promptPickupText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
                     break;
             }
 
@@ -119,7 +113,7 @@ public class InteractionManager : MonoBehaviourPun
                 {
                     Debug.Log("Speak With Object");
 
-                    curInteractable.OnInteract(0, curInteractable.interactableIndex, gameObject);
+                    curInteractable.OnInteract((int)interactable.interactableTypes, curInteractable.interactableIndex);
                 }
             }
         }
@@ -135,18 +129,8 @@ public class InteractionManager : MonoBehaviourPun
                 {
                     if (curInteractGameObject.GetComponent<InventoryPickupable>() != null)
                     {
-                        switch (curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables)
-                        {
-                            case InventoryPickupables.Battery:
-                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -1);
-                                break;
-                            case InventoryPickupables.LightBulb:
-                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -2);
-                                break;
-                            case InventoryPickupables.Paper:
-                                EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, -3);
-                                break;
-                        }
+                        EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
+                        Debug.Log("Item: " + (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
 
                         PhotonNetwork.Destroy(curInteractGameObject);
                         return;
@@ -157,7 +141,7 @@ public class InteractionManager : MonoBehaviourPun
                     curPickedupInteractable = curInteractable;
                     curPickedupInteractGameObject = curInteractGameObject;
 
-                    curInteractable.OnInteract(1, curInteractable.interactableIndex, gameObject);
+                    curInteractable.OnInteract((int)interactable.interactableTypes, curInteractable.interactableIndex);
                     curInteractable.PickupObject(PV.ViewID);
 
                     curInteractGameObject.transform.parent = pickupHolder;
@@ -174,22 +158,6 @@ public class InteractionManager : MonoBehaviourPun
 
             curPickedupInteractable = null;
             curPickedupInteractGameObject = null;
-        }
-    }
-
-    public void OnPetInput(InputAction.CallbackContext context)
-    {
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
-        {
-            foreach (var interactable in curInteractable.interactableTypeSelector)
-            {
-                if (interactable.interactableTypes == InteractableTypes.Petable)
-                {
-                    Debug.Log("Pet Object");
-
-                    curInteractable.OnInteract(2, curInteractable.interactableIndex, gameObject);
-                }
-            }
         }
     }
 }

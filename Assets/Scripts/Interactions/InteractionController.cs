@@ -82,6 +82,9 @@ public class InteractionController : MonoBehaviourPunCallbacks, IPunOwnershipCal
     {
         PV.TransferOwnership(_newPlayer);
 
+        if (taskObject != null)
+            taskObject.GetComponent<PhotonView>()?.TransferOwnership(_newPlayer);
+
         isBeingTransfered = true;
     }
 

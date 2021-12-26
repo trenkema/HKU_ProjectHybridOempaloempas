@@ -760,7 +760,7 @@ GameObject:
   - component: {fileID: -819905169420648223}
   - component: {fileID: 1606891161667888086}
   m_Layer: 3
-  m_Name: Player
+  m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1011,22 +1011,6 @@ MonoBehaviour:
     m_ActionId: ce70d263-7861-49a2-bd48-8ade1dfd7ee6
     m_ActionName: Player/Speak[/Keyboard/q,/DualShock4GamepadHID/leftTrigger]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8073102598142277383}
-        m_TargetAssemblyTypeName: InteractionManager, Assembly-CSharp
-        m_MethodName: OnPetInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: ce02c6ca-c0a7-4b17-ae92-1aae125ab4f7
-    m_ActionName: Player/Pet[/Keyboard/r,/DualShock4GamepadHID/rightShoulder,/DualShock4GamepadHID/rightShoulder]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: a99313dc-ae5f-47d7-8013-b15e1693f012
     m_ActionName: Player/Leave[/Keyboard/l]
@@ -1038,6 +1022,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 27e4a218-de7a-401f-820e-5c9021b63b9f
     m_ActionName: Player/TaskCompleted[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c19e8ef-2b68-41e6-afde-04866be31800
+    m_ActionName: Player/Insert[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1099,7 +1087,6 @@ MonoBehaviour:
     m_Bits: 951
   promptPickupText: {fileID: 8073102598200963686}
   promptTalkText: {fileID: 8073102599156654961}
-  promptPetText: {fileID: 366602895313412778}
 --- !u!114 &8073102598142277380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,7 +1138,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionController: {fileID: 0}
   radius: 5
+  isPawn: 0
 --- !u!114 &1606891161667888086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1577,7 +1566,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967159
+    m_Bits: 4294967287
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

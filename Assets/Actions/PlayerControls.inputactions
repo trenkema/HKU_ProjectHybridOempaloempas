@@ -38,9 +38,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Pet",
+                    "name": "Insert",
                     "type": "Button",
-                    "id": "ce02c6ca-c0a7-4b17-ae92-1aae125ab4f7",
+                    "id": "5c19e8ef-2b68-41e6-afde-04866be31800",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -84,7 +84,7 @@
                     "id": "978bfe49-cc26-4a3d-ab7b-7d7a29327403",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=2,y=2)",
+                    "processors": "",
                     "groups": ";Gamepad",
                     "action": "Move",
                     "isComposite": false,
@@ -194,7 +194,7 @@
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "ScaleVector2(x=2,y=2)",
                     "groups": ";Gamepad",
                     "action": "Look",
                     "isComposite": false,
@@ -279,28 +279,6 @@
                 },
                 {
                     "name": "",
-                    "id": "82db011d-fc7e-444c-8d60-84219c705928",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Pet",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "962b0d39-bc7e-435a-8591-dac8c5c2271b",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Pet",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e7a43e6b-8722-4d37-aa7e-64ce691609f8",
                     "path": "<Keyboard>/l",
                     "interactions": "",
@@ -362,6 +340,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "TaskCompleted",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d50a4aa3-71a4-47de-ba98-42f5dea7769a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Insert",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36f0940c-8d36-471f-8850-3450ac56211a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Insert",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

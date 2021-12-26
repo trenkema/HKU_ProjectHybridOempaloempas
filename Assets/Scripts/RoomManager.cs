@@ -10,12 +10,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public static RoomManager Instance;
     [SerializeField] MeshRenderer[] objectsToDisable;
     [SerializeField] string playerPrefab;
+    [SerializeField] string pawnPrefab;
     [SerializeField] Transform playerSpawnPoint;
     [SerializeField] string mainMenuScene;
 
     [SerializeField] InteractionController[] interactionControllers;
 
     private InteractionController curInteractionController = null;
+
+    private GameObject pawnObject;
 
     private bool hasLeft = false;
 
@@ -72,6 +75,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                         isPawn = true;
                         curInteractionController = interactionController;
                         curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
+                        pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position ,Quaternion.identity);
                         break;
                     }
                 }
@@ -108,6 +112,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
                                 curInteractionController.RemoveControl();
                                 curInteractionController = interactionController;
                                 interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+                                pawnObject.transform.position = interactionController.transform.position;
                                 PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
                                 break;
                             }
@@ -130,6 +135,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
         if (!hasLeft)
         {
             hasLeft = true;
+
+            if (pawnObject != null)
+                PhotonNetwork.Destroy(pawnObject);
+
             PhotonNetwork.LocalPlayer.CustomProperties.Clear();
             PhotonNetwork.LeaveRoom();
         }

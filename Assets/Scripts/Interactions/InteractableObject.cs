@@ -9,6 +9,7 @@ public class InteractableObject : IInteractable
 {
     [SerializeField] string displayName;
     [SerializeField] GameObject[] indicatorTexts;
+    [SerializeField] bool inventoryItem = false;
     private PhotonView PV;
     private Rigidbody rb;
 
@@ -26,16 +27,16 @@ public class InteractableObject : IInteractable
                 return string.Format("Speak With {0}", displayName);
             case InteractableTypes.Pickupable:
                 return string.Format("Pickup {0}", displayName);
-            case InteractableTypes.Petable:
-                return string.Format("Pet {0}", displayName);
+            case InteractableTypes.Insertable:
+                return string.Format("Insert {0}", displayName);
         }
 
         return null;
     }
 
-    public override void OnInteract(int _interactIndex, int _interactableIndex, GameObject _interactor)
+    public override void OnInteract(int _interactIndex, int _interactableIndex)
     {
-        if (isAssigned)
+        if (isAssigned && !inventoryItem)
         {
             PV.RPC("RPC_OnInteract", RpcTarget.All, _interactIndex, _interactableIndex);
         }
@@ -80,7 +81,8 @@ public class InteractableObject : IInteractable
 
     public override void PickupObject(int _viewID)
     {
-        PV.RPC("RPC_PickupObject", RpcTarget.All, _viewID, interactableIndex);
+        if (!inventoryItem)
+            PV.RPC("RPC_PickupObject", RpcTarget.All, _viewID, interactableIndex);
     }
 
     [PunRPC]
@@ -97,6 +99,7 @@ public class InteractableObject : IInteractable
                 rb.velocity = Vector3.zero;
                 transform.parent = GO.GetComponent<Pickup>().pickupHolder;
                 transform.localPosition = Vector3.zero;
+                transform.localRotation = Quaternion.identity;
             }
             else
             {

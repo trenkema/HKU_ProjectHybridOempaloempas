@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         switch (_itemID)
         {
-            case -1:
+            case 0:
                 hasBattery = true;
                 hasLightBulb = false;
                 hasPaper = false;
@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
                 inventoryText.SetActive(true);
                 inventoryIcons[0].SetActive(true);
                 break;
-            case -2:
+            case 1:
                 hasLightBulb = true;
                 hasBattery = false;
                 hasPaper = false;
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
                 inventoryText.SetActive(true);
                 inventoryIcons[1].SetActive(true);
                 break;
-            case -3:
+            case 2:
                 hasPaper = true;
                 hasBattery = false;
                 hasLightBulb = false;
