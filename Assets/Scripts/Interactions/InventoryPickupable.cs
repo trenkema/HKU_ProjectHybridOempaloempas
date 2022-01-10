@@ -7,4 +7,5 @@ public enum InventoryPickupables { Battery, LightBulb, Paper }
 public class InventoryPickupable : MonoBehaviour
 {
     public InventoryPickupables inventoryPickupables;
+    public int pickupableID;
 }

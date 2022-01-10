@@ -23,12 +23,16 @@ public class InteractionManager : MonoBehaviourPun
 
     [SerializeField] private TextMeshProUGUI promptPickupText;
     [SerializeField] private TextMeshProUGUI promptTalkText;
+    [SerializeField] private TextMeshProUGUI promptOpenText;
 
     private Camera cam;
 
     private bool isHolding = false;
 
     private PhotonView PV;
+
+    private bool hasItem = false;
+    private int curPickupableID = -1;
 
     private void Awake()
     {
@@ -65,6 +69,10 @@ public class InteractionManager : MonoBehaviourPun
                         curInteractGameObject = hit.collider.gameObject;
                         curInteractable = hit.collider.GetComponentInParent<IInteractable>();
 
+                        promptTalkText.gameObject.SetActive(false);
+                        promptPickupText.gameObject.SetActive(false);
+                        promptOpenText.gameObject.SetActive(false);
+
                         SetPromptText();
                     }
                 }
@@ -76,6 +84,7 @@ public class InteractionManager : MonoBehaviourPun
 
                 promptTalkText.gameObject.SetActive(false);
                 promptPickupText.gameObject.SetActive(false);
+                promptOpenText.gameObject.SetActive(false);
             }
         }
     }
@@ -95,8 +104,19 @@ public class InteractionManager : MonoBehaviourPun
                     promptTalkText.text = string.Format("<b>[Q]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Speakable));
                     break;
                 case InteractableTypes.Insertable:
+                    if (curPickupableID == curInteractable.insertableObjectID)
+                    {
+                        promptPickupText.gameObject.SetActive(true);
+                        promptPickupText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
+                    }
+                    break;
+                case InteractableTypes.Takeable:
                     promptPickupText.gameObject.SetActive(true);
-                    promptPickupText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
+                    promptPickupText.text = string.Format("<b>[T]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Takeable));
+                    break;
+                case InteractableTypes.Openable:
+                    promptOpenText.gameObject.SetActive(true);
+                    promptOpenText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Openable));
                     break;
             }
 
@@ -129,10 +149,16 @@ public class InteractionManager : MonoBehaviourPun
                 {
                     if (curInteractGameObject.GetComponent<InventoryPickupable>() != null)
                     {
-                        EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
-                        Debug.Log("Item: " + (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
+                        if (!hasItem)
+                        {
+                            hasItem = true;
+                            curPickupableID = curInteractGameObject.GetComponent<InventoryPickupable>().pickupableID;
+                            EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
+                            Debug.Log("Item: " + (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
 
-                        PhotonNetwork.Destroy(curInteractGameObject);
+                            PhotonNetwork.Destroy(curInteractGameObject);
+                        }
+
                         return;
                     }
 
@@ -158,6 +184,63 @@ public class InteractionManager : MonoBehaviourPun
 
             curPickedupInteractable = null;
             curPickedupInteractGameObject = null;
+        }
+    }
+
+    public void OnInsertInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            foreach (var interactable in curInteractable.interactableTypeSelector)
+            {
+                if (interactable.interactableTypes == InteractableTypes.Insertable)
+                {
+                    if (curPickupableID == curInteractable.insertableObjectID)
+                    {
+                        curPickupableID = -1;
+                        hasItem = false;
+                        EventSystemNew.RaiseEvent(Event_Type.REMOVE_ITEM);
+                        curInteractable.OnInteract((int)interactable.interactableTypes, curInteractable.interactableIndex);
+                        
+                        if (curInteractable.insertableActiveObject != string.Empty)
+                        {
+                            PhotonNetwork.Instantiate(curInteractable.insertableActiveObject, curInteractable.insertableActiveTransform.position, curInteractable.insertableActiveTransform.rotation);
+                        }
+
+                        Debug.Log("Insert Item");
+                    }
+                }
+            }
+        }
+    }
+
+    public void OnTakeInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            foreach (var interactable in curInteractable.interactableTypeSelector)
+            {
+                if (interactable.interactableTypes == InteractableTypes.Takeable)
+                {
+                    curInteractable.OnInteract((int)interactable.interactableTypes, curInteractable.interactableIndex);
+                    Debug.Log("Taken Item");
+                }
+            }
+        }
+    }
+
+    public void OnOpenableInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            foreach (var interactable in curInteractable.interactableTypeSelector)
+            {
+                if (interactable.interactableTypes == InteractableTypes.Openable)
+                {
+                    curInteractable.animator.SetBool(curInteractable.animatorParameter, !curInteractable.animator.GetBool(curInteractable.animatorParameter));
+                    Debug.Log("Opened/Closed Item");
+                }
+            }
         }
     }
 }

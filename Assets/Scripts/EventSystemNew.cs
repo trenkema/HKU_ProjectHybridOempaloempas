@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum Event_Type
 {
-    ADD_ITEM
+    ADD_ITEM,
+    REMOVE_ITEM
 }
 
 public static class EventSystemNew

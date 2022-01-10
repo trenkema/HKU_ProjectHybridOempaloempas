@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class InteractableObject : IInteractable
 {
     [SerializeField] string displayName;
+    [SerializeField] string takeableName;
+    [SerializeField] string insertableName;
     [SerializeField] GameObject[] indicatorTexts;
     [SerializeField] bool inventoryItem = false;
     private PhotonView PV;
@@ -28,7 +30,11 @@ public class InteractableObject : IInteractable
             case InteractableTypes.Pickupable:
                 return string.Format("Pickup {0}", displayName);
             case InteractableTypes.Insertable:
-                return string.Format("Insert {0}", displayName);
+                return string.Format("Insert {0}", insertableName);
+            case InteractableTypes.Takeable:
+                return string.Format("Take {0}", takeableName);
+            case InteractableTypes.Openable:
+                return string.Format("Open/Close {0}", displayName);
         }
 
         return null;
@@ -48,7 +54,7 @@ public class InteractableObject : IInteractable
         if (!PV.IsMine)
             return;
 
-        if (interactableIndex == _interactableIndex)
+        if (interactableIndex == _interactableIndex && isAssigned)
         {
             Debug.Log("Show Interaction Text");
             indicatorTexts[_interactionIndex].SetActive(true);

@@ -36,12 +36,10 @@ public class PlayerController : MonoBehaviour
 
     private PhotonView PV;
 
-    private bool hasBattery = false;
-    private bool hasLightBulb = false;
-    private bool hasPaper = false;
-
     [SerializeField] GameObject inventoryText;
     [SerializeField] GameObject[] inventoryIcons;
+
+    private RoomManager roomManager;
 
     private void Awake()
     {
@@ -58,13 +56,30 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        roomManager = FindObjectOfType<RoomManager>();
+
+        foreach (var item in roomManager.objectsToTakeOverAsPlayer)
+        {
+            item.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
+        }
+
         Cursor.lockState = CursorLockMode.Locked;
 
         EventSystemNew<int>.Subscribe(Event_Type.ADD_ITEM, AddInventoryItem);
+        EventSystemNew.Subscribe(Event_Type.REMOVE_ITEM, RemoveInventoryItem);
+    }
+
+    private void OnDisable()
+    {
+        EventSystemNew<int>.Unsubscribe(Event_Type.ADD_ITEM, AddInventoryItem);
+        EventSystemNew.Unsubscribe(Event_Type.REMOVE_ITEM, RemoveInventoryItem);
     }
 
     private void LateUpdate()
     {
+        if (!PV.IsMine)
+            return;
+
         if (canLook)
         {
             CameraLook();
@@ -73,6 +88,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!PV.IsMine)
+            return;
+
         Move();
     }
 
@@ -81,10 +99,6 @@ public class PlayerController : MonoBehaviour
         switch (_itemID)
         {
             case 0:
-                hasBattery = true;
-                hasLightBulb = false;
-                hasPaper = false;
-
                 foreach (var inventoryIcon in inventoryIcons)
                 {
                     inventoryIcon.SetActive(false);
@@ -94,10 +108,6 @@ public class PlayerController : MonoBehaviour
                 inventoryIcons[0].SetActive(true);
                 break;
             case 1:
-                hasLightBulb = true;
-                hasBattery = false;
-                hasPaper = false;
-
                 foreach (var inventoryIcon in inventoryIcons)
                 {
                     inventoryIcon.SetActive(false);
@@ -107,10 +117,6 @@ public class PlayerController : MonoBehaviour
                 inventoryIcons[1].SetActive(true);
                 break;
             case 2:
-                hasPaper = true;
-                hasBattery = false;
-                hasLightBulb = false;
-
                 foreach (var inventoryIcon in inventoryIcons)
                 {
                     inventoryIcon.SetActive(false);
@@ -119,6 +125,16 @@ public class PlayerController : MonoBehaviour
                 inventoryText.SetActive(true);
                 inventoryIcons[2].SetActive(true);
                 break;
+        }
+    }
+
+    public void RemoveInventoryItem()
+    {
+        inventoryText.SetActive(false);
+
+        foreach (var item in inventoryIcons)
+        {
+            item.SetActive(false);
         }
     }
 
@@ -165,6 +181,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
+        if (!PV.IsMine)
+            return;
+
         if (context.phase == InputActionPhase.Started)
         {
             if (IsGrounded())

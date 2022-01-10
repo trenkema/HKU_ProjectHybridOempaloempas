@@ -8,6 +8,9 @@ using UnityEngine.InputSystem;
 public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
+
+    public GameObject[] objectsToTakeOverAsPlayer;
+
     [SerializeField] MeshRenderer[] objectsToDisable;
     [SerializeField] string playerPrefab;
     [SerializeField] string pawnPrefab;
