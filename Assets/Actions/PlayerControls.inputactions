@@ -62,6 +62,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Mute",
+                    "type": "Button",
+                    "id": "54dffca6-c677-4417-8bca-4e8a94ed1b09",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "4995d96e-a346-424a-b9d0-15d38595fbab",
@@ -422,6 +430,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Open",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bd9d8a70-3867-4711-971e-c3452263aea5",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0907367a-440d-4118-a22e-d01a7d784a07",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Mute",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

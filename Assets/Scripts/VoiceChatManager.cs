@@ -14,6 +14,8 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
 
     IRtcEngine rtcEngine;
 
+    private bool isMuted = false;
+
     private void Awake()
     {
         if (Instance)
@@ -36,6 +38,12 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
         rtcEngine.OnError += OnError;
 
         rtcEngine.EnableSoundPositionIndication(true);
+    }
+
+    public void MuteMicrophone()
+    {
+        isMuted = !isMuted;
+        rtcEngine.MuteLocalAudioStream(isMuted);
     }
 
     private void OnError(int error, string msg)
