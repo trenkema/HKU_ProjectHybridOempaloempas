@@ -14,6 +14,11 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
 
     IRtcEngine rtcEngine;
 
+    [SerializeField] GameObject micCanvas;
+
+    [SerializeField] GameObject micOnText;
+    [SerializeField] GameObject micOffText;
+
     private bool isMuted = false;
 
     private void Awake()
@@ -43,6 +48,10 @@ public class VoiceChatManager : MonoBehaviourPunCallbacks
     public void MuteMicrophone()
     {
         isMuted = !isMuted;
+
+        micOnText.SetActive(!micOnText.activeInHierarchy);
+        micOffText.SetActive(!micOffText.activeInHierarchy);
+
         rtcEngine.MuteLocalAudioStream(isMuted);
     }
 

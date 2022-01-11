@@ -35,6 +35,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     [SerializeField] int maxPlayersPerRoom = 2;
 
+    [SerializeField] TextMeshProUGUI versionText;
+
+    private int currentABVersion = 0;
+
     private void Awake()
     {
         if (Instance == null)
@@ -60,6 +64,38 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         Debug.Log("Connecting To Master");
         PhotonNetwork.ConnectUsingSettings();
     }
+
+    // For Changing AB Version
+    public void ChangeABVersion()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+            {
+                currentABVersion = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+            }
+
+            int newABVersion = currentABVersion + 1;
+
+            if (newABVersion > 1)
+            {
+                newABVersion = 0;
+            }
+
+            Hashtable ABVersion = new Hashtable();
+            ABVersion.Add("ABVersion", newABVersion);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(ABVersion);
+        }
+    }
+
+    public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+    {
+        if (propertiesThatChanged.ContainsKey("ABVersion"))
+        {
+            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"]).ToString();
+        }
+    }
+    // End Of Changing AB Version
 
     public void SetNickName(string _newNickname)
     {
@@ -135,6 +171,17 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         leaveGameButton.interactable = true;
         startGameButton.interactable = true;
         startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+        {
+            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"]).ToString();
+        }
+        else
+        {
+            Hashtable ABVersion = new Hashtable();
+            ABVersion.Add("ABVersion", 0);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(ABVersion);
+        }
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)

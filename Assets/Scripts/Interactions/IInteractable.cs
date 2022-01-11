@@ -8,6 +8,7 @@ public abstract class IInteractable : MonoBehaviour
 {
     public int interactableIndex = 0;
     public bool isAssigned = false;
+    public bool followObject = false;
 
     public int insertableObjectID;
     public string insertableActiveObject;
