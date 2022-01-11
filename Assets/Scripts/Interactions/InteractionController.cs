@@ -22,6 +22,8 @@ public class InteractionController : MonoBehaviourPunCallbacks, IPunOwnershipCal
 
     [SerializeField] GameObject ownCamera;
 
+    [SerializeField] bool invertY = false;
+
     private float curCamRotX;
     private float curCamRotY;
     private Vector2 mouseDelta;
@@ -60,7 +62,11 @@ public class InteractionController : MonoBehaviourPunCallbacks, IPunOwnershipCal
         curCamRotX += mouseDelta.y * lookSensitivity;
         curCamRotY += mouseDelta.x * lookSensitivity;
         curCamRotX = Mathf.Clamp(curCamRotX, minXLook, maxXLook);
-        cameraHolder.localEulerAngles = new Vector3(-curCamRotX, -curCamRotY, 0);
+
+        if (!invertY)
+            cameraHolder.eulerAngles = new Vector3(curCamRotX, curCamRotY, 0);
+        else
+            cameraHolder.eulerAngles = new Vector3(-curCamRotX, curCamRotY, 0);
     }
 
     public void OnLookInput(InputAction.CallbackContext context)
@@ -148,5 +154,10 @@ public class InteractionController : MonoBehaviourPunCallbacks, IPunOwnershipCal
     {
         if (interactableIndex == _interactableIndex)
             isAssigned = _hasControl;
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        interactableComponent.SyncControl(interactableIndex);
     }
 }

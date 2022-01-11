@@ -76,9 +76,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
                     {
                         Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
                         isPawn = true;
+
                         curInteractionController = interactionController;
                         curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
-                        pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position ,Quaternion.identity);
+
+                        pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position , Quaternion.identity);
                         break;
                     }
                 }

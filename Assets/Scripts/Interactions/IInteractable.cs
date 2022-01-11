@@ -12,6 +12,7 @@ public abstract class IInteractable : MonoBehaviour
     public int insertableObjectID;
     public string insertableActiveObject;
     public Transform insertableActiveTransform;
+    public GameObject objectIdentifierText;
 
     public Animator animator;
     public string animatorParameter;
@@ -20,5 +21,6 @@ public abstract class IInteractable : MonoBehaviour
     public abstract void OnInteract(int _interactionIndex, int _interactableIndex);
     public abstract void RPC_OnInteract(int _interactionIndex, int _interactableIndex);
     public abstract void TakeControl(bool _takeControl, int _interactableIndex);
+    public abstract void SyncControl(int _interactableIndex);
     public abstract void PickupObject(int _viewID);
 }

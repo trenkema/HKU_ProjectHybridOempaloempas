@@ -11,6 +11,7 @@ public class InteractableObject : IInteractable
     [SerializeField] string takeableName;
     [SerializeField] string insertableName;
     [SerializeField] GameObject[] indicatorTexts;
+
     [SerializeField] bool inventoryItem = false;
     private PhotonView PV;
     private Rigidbody rb;
@@ -44,6 +45,8 @@ public class InteractableObject : IInteractable
     {
         if (isAssigned && !inventoryItem)
         {
+            Debug.Log("Performing Interaction");
+
             PV.RPC("RPC_OnInteract", RpcTarget.All, _interactIndex, _interactableIndex);
         }
     }
@@ -66,6 +69,11 @@ public class InteractableObject : IInteractable
         if (!PV.IsMine)
             return;
 
+        if (!_takeControl)
+            objectIdentifierText.SetActive(false);
+        else
+            objectIdentifierText.SetActive(true);
+
         if (interactableIndex == _interactableIndex)
         {
             foreach (var indicatorText in indicatorTexts)
@@ -75,6 +83,14 @@ public class InteractableObject : IInteractable
 
             isAssigned = _takeControl;
             PV.RPC("RPC_TakeControl2", RpcTarget.Others, true, interactableIndex);
+        }
+    }
+
+    public override void SyncControl(int _interactableIndex)
+    {
+        if (interactableIndex == _interactableIndex)
+        {
+            PV.RPC("RPC_TakeControl2", RpcTarget.Others, isAssigned, interactableIndex);
         }
     }
 
