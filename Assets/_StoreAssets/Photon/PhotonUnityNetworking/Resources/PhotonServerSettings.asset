@@ -44,6 +44,7 @@ MonoBehaviour:
   - RPC_PickupObject
   - RPC_TakeControl
   - RPC_TakeControl2
+  - RPC_PickupInventoryObject
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

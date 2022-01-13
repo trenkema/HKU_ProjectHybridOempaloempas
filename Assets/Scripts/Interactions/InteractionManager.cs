@@ -156,6 +156,8 @@ public class InteractionManager : MonoBehaviourPun
                             EventSystemNew<int>.RaiseEvent(Event_Type.ADD_ITEM, (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
                             Debug.Log("Item: " + (int)curInteractGameObject.GetComponent<InventoryPickupable>().inventoryPickupables);
 
+                            curInteractable.PickupObject(PV.ViewID);
+
                             PhotonNetwork.Destroy(curInteractGameObject);
                         }
 

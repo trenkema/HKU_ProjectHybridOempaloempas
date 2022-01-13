@@ -12,6 +12,8 @@ public class InteractableObject : IInteractable
     [SerializeField] string insertableName;
     [SerializeField] GameObject[] indicatorTexts;
 
+    [SerializeField] GameObject objectPickedupText;
+
     [SerializeField] bool inventoryItem = false;
     private PhotonView PV;
     private Rigidbody rb;
@@ -105,6 +107,8 @@ public class InteractableObject : IInteractable
     {
         if (!inventoryItem)
             PV.RPC("RPC_PickupObject", RpcTarget.All, _viewID, interactableIndex);
+        else
+            PV.RPC("RPC_PickupInventoryObject", RpcTarget.Others);
     }
 
     [PunRPC]
@@ -134,6 +138,13 @@ public class InteractableObject : IInteractable
             rb.useGravity = true;
             rb.isKinematic = false;
         }
+    }
+
+    [PunRPC]
+    public void RPC_PickupInventoryObject()
+    {
+        if (objectPickedupText != null)
+            objectPickedupText.SetActive(true);
     }
 }
 

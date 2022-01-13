@@ -355,11 +355,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1439031682}
+    m_TransformParent: {fileID: 332078175}
     m_Modifications:
     - target: {fileID: 9132618245688828808, guid: 7721b4996d686644897d57ce7d84249b, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9132618245688828808, guid: 7721b4996d686644897d57ce7d84249b, type: 3}
       propertyPath: m_LocalScale.x
@@ -1334,7 +1334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &55791396
 GameObject:
@@ -2269,6 +2269,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2344,6 +2348,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!23 &78803342
 MeshRenderer:
@@ -2956,6 +2961,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/e,/DualShock4GamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3027,7 +3036,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 2
   displayName: Camera
   takeableName: 
@@ -3038,6 +3046,7 @@ MonoBehaviour:
   - {fileID: 1105894526}
   - {fileID: 1979773561}
   - {fileID: 130165297}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!65 &110742486
 BoxCollider:
@@ -3114,6 +3123,142 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7698649443441439191, guid: f271aca5ff5362b47afb20c27b9d20b9, type: 3}
   m_PrefabInstance: {fileID: 121521056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &123693994
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123693995}
+  - component: {fileID: 123693997}
+  - component: {fileID: 123693996}
+  m_Layer: 6
+  m_Name: LightBulbPickedupText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &123693995
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123693994}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 983538202}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -25, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &123693996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123693994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Light Bulb
+
+    Picked Up'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: adfa5f99db69b70479cfd320e61bc86e, type: 2}
+  m_sharedMaterial: {fileID: -16531618388423548, guid: adfa5f99db69b70479cfd320e61bc86e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 25
+  m_fontSizeBase: 25
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 0
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &123693997
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123693994}
+  m_CullTransparentMesh: 1
 --- !u!1 &126619624
 GameObject:
   m_ObjectHideFlags: 0
@@ -6336,6 +6481,10 @@ Transform:
   m_Children:
   - {fileID: 1062859822}
   - {fileID: 59267198}
+  - {fileID: 2085994042}
+  - {fileID: 767185245}
+  - {fileID: 892479690}
+  - {fileID: 11898895}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9384,6 +9533,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 123693994}
   inventoryItem: 1
 --- !u!64 &550543780
 MeshCollider:
@@ -12137,6 +12287,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -12208,7 +12362,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 2
   displayName: Lamp
   takeableName: 
@@ -12219,6 +12372,7 @@ MonoBehaviour:
   - {fileID: 2135058348}
   - {fileID: 1337683314}
   - {fileID: 1003124770}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!64 &700307079
 MeshCollider:
@@ -12860,14 +13014,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &767185244
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1439031682}
+    m_TransformParent: {fileID: 332078175}
     m_Modifications:
     - target: {fileID: 5176291976143209477, guid: f0a98e580c1620445a559fb7eb335152, type: 3}
       propertyPath: m_Name
@@ -12875,7 +13029,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5176291976143640613, guid: f0a98e580c1620445a559fb7eb335152, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5176291976143640613, guid: f0a98e580c1620445a559fb7eb335152, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15057,7 +15211,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 1
   displayName: Pan
   takeableName: 
@@ -15068,6 +15221,7 @@ MonoBehaviour:
   - {fileID: 299517943}
   - {fileID: 853268694}
   - {fileID: 1541284323}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!23 &845510157
 MeshRenderer:
@@ -15193,7 +15347,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &850820069
 MonoBehaviour:
@@ -16253,11 +16407,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1439031682}
+    m_TransformParent: {fileID: 332078175}
     m_Modifications:
     - target: {fileID: 9132618245688828808, guid: 7721b4996d686644897d57ce7d84249b, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9132618245688828808, guid: 7721b4996d686644897d57ce7d84249b, type: 3}
       propertyPath: m_LocalScale.x
@@ -17816,6 +17970,106 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &983538198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 983538202}
+  - component: {fileID: 983538201}
+  - component: {fileID: 983538200}
+  - component: {fileID: 983538199}
+  m_Layer: 5
+  m_Name: HUD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &983538199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983538198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &983538200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983538198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0.5
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &983538201
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983538198}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 1
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &983538202
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983538198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 123693995}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &984535586
 GameObject:
   m_ObjectHideFlags: 0
@@ -18426,6 +18680,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 0}
   inventoryItem: 1
 --- !u!1001 &1030212276
 PrefabInstance:
@@ -25187,10 +25442,6 @@ Transform:
   - {fileID: 498334332}
   - {fileID: 182065754}
   - {fileID: 196075584}
-  - {fileID: 2085994042}
-  - {fileID: 767185245}
-  - {fileID: 892479690}
-  - {fileID: 11898895}
   m_Father: {fileID: 1391790081}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25486,9 +25737,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 725557647042468855, guid: 26a879e3ef89cd445bfe8364a6bb10aa, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 26a879e3ef89cd445bfe8364a6bb10aa, type: 3}
       propertyPath: m_Name
-      value: TakeablePaper
+      value: Pickupable_Paper
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 26a879e3ef89cd445bfe8364a6bb10aa, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 26a879e3ef89cd445bfe8364a6bb10aa, type: 3}
       propertyPath: m_IsActive
@@ -26012,7 +26271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1471673266
 Transform:
   m_ObjectHideFlags: 0
@@ -28208,7 +28467,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 3
   displayName: Printer
   takeableName: Paper
@@ -28219,6 +28477,7 @@ MonoBehaviour:
   - {fileID: 1740919518}
   - {fileID: 1963173819}
   - {fileID: 1265419638}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!64 &1600741437
 MeshCollider:
@@ -28468,6 +28727,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -28538,8 +28801,7 @@ MonoBehaviour:
   objectIdentifierText: {fileID: 101774985}
   animator: {fileID: 0}
   animatorParameter: 
-  interactableTypeSelector:
-  - interactableTypes: 0
+  interactableTypeSelector: []
   displayName: Table
   takeableName: 
   insertableName: 
@@ -28549,6 +28811,7 @@ MonoBehaviour:
   - {fileID: 340129577}
   - {fileID: 1741371560}
   - {fileID: 1395407999}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!64 &1606365106
 MeshCollider:
@@ -29779,6 +30042,133 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1662943936}
   m_Mesh: {fileID: 3387709480568953075, guid: db47bc9c647770944b01f6878f565820, type: 3}
+--- !u!1 &1664814289
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1664814291}
+  - component: {fileID: 1664814290}
+  m_Layer: 0
+  m_Name: BGMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &1664814290
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664814289}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2396fe0ac9a82684abbc39fe05014ba4, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.02
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &1664814291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664814289}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1666147856
 GameObject:
   m_ObjectHideFlags: 0
@@ -34252,6 +34642,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -34322,8 +34716,7 @@ MonoBehaviour:
   objectIdentifierText: {fileID: 1163371292}
   animator: {fileID: 0}
   animatorParameter: 
-  interactableTypeSelector:
-  - interactableTypes: 0
+  interactableTypeSelector: []
   displayName: Closet
   takeableName: 
   insertableName: 
@@ -34333,6 +34726,7 @@ MonoBehaviour:
   - {fileID: 267459258}
   - {fileID: 1324799372}
   - {fileID: 15384563}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!1 &1877434733
 GameObject:
@@ -36220,7 +36614,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2030861027
 GameObject:
@@ -37749,11 +38143,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1439031682}
+    m_TransformParent: {fileID: 332078175}
     m_Modifications:
     - target: {fileID: 5979030009953296626, guid: 98cd4b9d7a9e35b42855c2000df412c5, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5979030009953296626, guid: 98cd4b9d7a9e35b42855c2000df412c5, type: 3}
       propertyPath: m_LocalScale.x
@@ -39262,8 +39656,7 @@ MonoBehaviour:
   objectIdentifierText: {fileID: 1303100746}
   animator: {fileID: 0}
   animatorParameter: 
-  interactableTypeSelector:
-  - interactableTypes: 0
+  interactableTypeSelector: []
   displayName: Closet
   takeableName: 
   insertableName: 
@@ -39273,6 +39666,7 @@ MonoBehaviour:
   - {fileID: 871516852}
   - {fileID: 1477158485}
   - {fileID: 468448474}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!4 &821465773665415382
 Transform:
@@ -39371,6 +39765,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 0}
   inventoryItem: 1
 --- !u!65 &919132147775643480
 BoxCollider:
@@ -39462,6 +39857,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 123693994}
   inventoryItem: 1
 --- !u!114 &919132148484521107
 MonoBehaviour:
@@ -39728,7 +40124,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 3
   displayName: Printer
   takeableName: Paper
@@ -39739,6 +40134,7 @@ MonoBehaviour:
   - {fileID: 12832049}
   - {fileID: 509295984}
   - {fileID: 331408552}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!64 &919132148993534352
 MeshCollider:
@@ -39984,7 +40380,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 2
   displayName: Camera
   takeableName: 
@@ -39995,6 +40390,7 @@ MonoBehaviour:
   - {fileID: 967361823}
   - {fileID: 2042174203}
   - {fileID: 168761161}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!23 &1138635496114063233
 MeshRenderer:
@@ -40511,6 +40907,7 @@ MonoBehaviour:
   - {fileID: 2057647237}
   - {fileID: 885971909}
   - {fileID: 2133289292}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!65 &1702801846903819007
 BoxCollider:
@@ -42445,6 +42842,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -42498,6 +42899,7 @@ MonoBehaviour:
   takeableName: 
   insertableName: 
   indicatorTexts: []
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!4 &5059929300425713613
 Transform:
@@ -48660,6 +49062,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -48730,8 +49136,7 @@ MonoBehaviour:
   objectIdentifierText: {fileID: 1319201135}
   animator: {fileID: 0}
   animatorParameter: 
-  interactableTypeSelector:
-  - interactableTypes: 0
+  interactableTypeSelector: []
   displayName: Table
   takeableName: 
   insertableName: 
@@ -48741,6 +49146,7 @@ MonoBehaviour:
   - {fileID: 1517127986}
   - {fileID: 1313776730}
   - {fileID: 1277502676}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!33 &7937279310538038431
 MeshFilter:
@@ -49091,7 +49497,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   animatorParameter: 
   interactableTypeSelector:
-  - interactableTypes: 0
   - interactableTypes: 2
   displayName: Lamp
   takeableName: 
@@ -49102,6 +49507,7 @@ MonoBehaviour:
   - {fileID: 1279275975}
   - {fileID: 560764861}
   - {fileID: 109271415}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!114 &8446088108495028045
 MonoBehaviour:
@@ -49224,6 +49630,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1e54e5ec-3181-47f1-986c-06d689f605f8
     m_ActionName: Player/Open[/Keyboard/f,/DualShock4GamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 54dffca6-c677-4417-8bca-4e8a94ed1b09
+    m_ActionName: Player/Mute[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
