@@ -100,6 +100,86 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SelectNumber0",
+                    "type": "Button",
+                    "id": "ae62998b-4909-4269-87f4-4c82801fd24a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber1",
+                    "type": "Button",
+                    "id": "692b8664-0b19-4774-83c3-4b43a491dfda",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber2",
+                    "type": "Button",
+                    "id": "3bf97e9a-f2e4-4d1a-b585-4f61f846dc1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber3",
+                    "type": "Button",
+                    "id": "dd92ca55-5e95-4f28-8515-7b2f344f3372",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber4",
+                    "type": "Button",
+                    "id": "b27d51bf-52e9-4568-851b-cb794bcc6960",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber5",
+                    "type": "Button",
+                    "id": "369dbb61-e6c7-488e-ae43-3f5cdba90a91",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber6",
+                    "type": "Button",
+                    "id": "78930667-7c35-426d-a322-519e1bd0b519",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber7",
+                    "type": "Button",
+                    "id": "8426b18f-b88b-45d5-b572-d6ed6dfd7b08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber8",
+                    "type": "Button",
+                    "id": "97613e77-0d45-4c4d-8ece-44060a84339d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SelectNumber9",
+                    "type": "Button",
+                    "id": "d9a2bdee-44c7-45aa-a714-33dfa797a4a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -452,6 +532,116 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Mute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1216e12f-9023-4384-a80c-efd388a7cc23",
+                    "path": "<Keyboard>/0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ef18408-0ae2-448f-a336-1bcffcd6005a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "060df08e-e730-4a7b-ad4a-76c7ef868108",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2efc24b-52db-407e-a6c7-6d128c133376",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "967af86d-2d1b-472a-b49e-864ccda26c0f",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bad6b388-77fa-48c5-b22e-f05aa919a636",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d3f09afb-741b-4362-8af4-c10cd67b1d76",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber6",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f7a2fb7d-e88e-49d7-a7cb-f8b80821ab4f",
+                    "path": "<Keyboard>/7",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber7",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "38c92d6f-3013-4281-8c92-bcf028d5122a",
+                    "path": "<Keyboard>/8",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber8",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f63d4349-c84b-4d81-b1c3-e5e346f87926",
+                    "path": "<Keyboard>/9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "SelectNumber9",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -131,7 +131,10 @@ public class InteractionManager : MonoBehaviourPun
             {
                 if (interactable.interactableTypes == InteractableTypes.Speakable)
                 {
-                    Debug.Log("Speak With Object");
+                    if (curInteractGameObject.GetComponent<NetworkPlaySound>() != null)
+                    {
+                        curInteractGameObject.GetComponent<NetworkPlaySound>().PlaySoundAtOwnTransformChronic();
+                    }
 
                     curInteractable.OnInteract((int)interactable.interactableTypes, curInteractable.interactableIndex);
                 }

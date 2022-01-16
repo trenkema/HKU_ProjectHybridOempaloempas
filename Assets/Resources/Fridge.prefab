@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &3316421918138284799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2948739124019830131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972e8b365021e0f4c9006e3f106a99ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableComponent: {fileID: 0}
+  cameraHolder: {fileID: 0}
+  interactionTransform: {fileID: 0}
+  minXLook: -89
+  maxXLook: 89
+  lookSensitivity: 0.1
+  interactableIndex: 5
+  taskObject: {fileID: 0}
+  ownCamera: {fileID: 0}
+  invertY: 1
 --- !u!1001 &2345571818992743796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11,6 +33,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 344980153, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
+      propertyPath: OwnershipTransfer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 603803100041783303, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
       propertyPath: m_Name
       value: Fridge
@@ -21,15 +47,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6626833189925667802, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.275
+      value: -4.332
       objectReference: {fileID: 0}
     - target: {fileID: 6626833189925667802, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.059
+      value: 0.09187949
       objectReference: {fileID: 0}
     - target: {fileID: 6626833189925667802, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 1.846
       objectReference: {fileID: 0}
     - target: {fileID: 6626833189925667802, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
       propertyPath: m_LocalRotation.w
@@ -61,3 +87,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
+--- !u!1 &2948739124019830131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 603803100041783303, guid: 011e32ceb24c31e429a43daa3aa183ec, type: 3}
+  m_PrefabInstance: {fileID: 2345571818992743796}
+  m_PrefabAsset: {fileID: 0}

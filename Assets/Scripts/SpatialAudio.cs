@@ -8,7 +8,7 @@ using System.Linq;
 
 public class SpatialAudio : MonoBehaviour
 {
-    [SerializeField] float radius;
+    [SerializeField] float hearRadius;
 
     PhotonView PV;
 
@@ -68,7 +68,7 @@ public class SpatialAudio : MonoBehaviour
     float GetGain(Vector3 _otherPosition)
     {
         float distance = Vector3.Distance(transform.position, _otherPosition);
-        float gain = Mathf.Max(1 - (distance / radius), 0) * 100f;
+        float gain = Mathf.Max(1 - (distance / hearRadius), 0) * 100f;
         return gain;
     }
 

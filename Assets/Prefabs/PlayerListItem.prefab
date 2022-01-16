@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 6455869979961061148}
   pawnID: {fileID: 1368981406899828395}
-  maxPawnID: 6
+  maxPawnID: 8
 --- !u!1 &3960808517522348472
 GameObject:
   m_ObjectHideFlags: 0

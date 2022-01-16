@@ -45,6 +45,9 @@ MonoBehaviour:
   - RPC_TakeControl
   - RPC_TakeControl2
   - RPC_PickupInventoryObject
+  - RPC_PlaySoundAtLocation
+  - RPC_PlaySoundAtOwnTransform
+  - RPC_PlaySoundAtOwnTransformChronic
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
