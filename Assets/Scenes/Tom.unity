@@ -15334,7 +15334,7 @@ MonoBehaviour:
   - {fileID: 1600741435}
   - {fileID: 1702801846903819005}
   - {fileID: 1876154986}
-  cooldownTime: 0.5
+  cooldownTime: 0.25
 --- !u!4 &850820068
 Transform:
   m_ObjectHideFlags: 0

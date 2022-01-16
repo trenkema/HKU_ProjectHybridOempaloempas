@@ -15,7 +15,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
     public GameObject[] objectsToTakeOverAsPlayerA;
     public GameObject[] objectsToTakeOverAsPlayerB;
 
-    [SerializeField] MeshRenderer[] objectsToDisable;
     [SerializeField] string playerPrefab;
     [SerializeField] string pawnPrefab;
     [SerializeField] Transform playerSpawnPoint;
@@ -103,11 +102,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
-            foreach (var obj in objectsToDisable)
-            {
-                obj.enabled = false;
-            }
 
             if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
             {
