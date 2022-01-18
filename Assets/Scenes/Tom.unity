@@ -14284,7 +14284,6 @@ GameObject:
   - component: {fileID: 714093980}
   - component: {fileID: 714093981}
   - component: {fileID: 714093979}
-  - component: {fileID: 714093978}
   - component: {fileID: 714093982}
   m_Layer: 0
   m_Name: 'Interactable_Fridge_PlaceHolder (Index: 7)'
@@ -14309,19 +14308,6 @@ Transform:
   m_Father: {fileID: 1154587993}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &714093978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714093976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &714093979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17716,7 +17702,6 @@ GameObject:
   - component: {fileID: 845510148}
   - component: {fileID: 845510147}
   - component: {fileID: 845510146}
-  - component: {fileID: 845510159}
   m_Layer: 6
   m_Name: 'Interactable_Pan_B (Index: 5)'
   m_TagString: Untagged
@@ -18150,19 +18135,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 845510144}
   m_Mesh: {fileID: 4300000, guid: 105aefc79ed082f439bd0a564a8e3723, type: 3}
---- !u!114 &845510159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 845510144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!1 &850820066
 GameObject:
   m_ObjectHideFlags: 0
@@ -32050,7 +32022,6 @@ GameObject:
   - component: {fileID: 1490474497}
   - component: {fileID: 1490474495}
   - component: {fileID: 1490474499}
-  - component: {fileID: 1490474498}
   - component: {fileID: 1490474503}
   m_Layer: 0
   m_Name: 'Interactable_TV (Index: 8)'
@@ -32130,19 +32101,6 @@ MonoBehaviour:
   - {fileID: 468448474}
   objectPickedupText: {fileID: 0}
   inventoryItem: 0
---- !u!114 &1490474498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1490474494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &1490474499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37331,7 +37289,6 @@ GameObject:
   - component: {fileID: 1711830174}
   - component: {fileID: 1711830173}
   - component: {fileID: 1711830172}
-  - component: {fileID: 1711830171}
   - component: {fileID: 1711830175}
   m_Layer: 0
   m_Name: 'Interactable_Fridge_PlaceHolder (Index: 7)'
@@ -37356,19 +37313,6 @@ Transform:
   m_Father: {fileID: 885542130}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!114 &1711830171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1711830169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &1711830172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47719,7 +47663,6 @@ GameObject:
   - component: {fileID: 816958142190279141}
   - component: {fileID: 816958142190279139}
   - component: {fileID: 816958142190279138}
-  - component: {fileID: 816958142190279140}
   m_Layer: 6
   m_Name: 'Interactable_Closet (Index: 6)'
   m_TagString: Untagged
@@ -47931,19 +47874,6 @@ MonoBehaviour:
   sceneViewId: 14
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &816958142190279140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816958142190279137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &816958142190279141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48240,7 +48170,6 @@ GameObject:
   - component: {fileID: 919132148993534350}
   - component: {fileID: 919132148993534348}
   - component: {fileID: 919132148993534347}
-  - component: {fileID: 919132148993534349}
   m_Layer: 6
   m_Name: 'Interactable_Printer (Index: 4)'
   m_TagString: Untagged
@@ -48452,19 +48381,6 @@ MonoBehaviour:
   sceneViewId: 8
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &919132148993534349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148993534346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &919132148993534350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48549,7 +48465,6 @@ GameObject:
   - component: {fileID: 919132149136622069}
   - component: {fileID: 919132149136622067}
   - component: {fileID: 919132149136622066}
-  - component: {fileID: 919132149136622068}
   m_Layer: 6
   m_Name: 'Interactable_Camera (Index: 3)'
   m_TagString: Untagged
@@ -48762,19 +48677,6 @@ MonoBehaviour:
   sceneViewId: 7
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &919132149136622068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149136622064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &919132149136622069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51552,7 +51454,6 @@ GameObject:
   - component: {fileID: 5045984336629306323}
   - component: {fileID: 5045984336629306322}
   - component: {fileID: 5045984336629306325}
-  - component: {fileID: 5045984336629306321}
   m_Layer: 0
   m_Name: 'Interactable_TV (Index: 8)'
   m_TagString: Untagged
@@ -51560,19 +51461,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5045984336629306321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5045984336629306320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &5045984336629306322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51901,7 +51789,6 @@ GameObject:
   - component: {fileID: 5059929300425292782}
   - component: {fileID: 5059929300425292784}
   - component: {fileID: 5059929300425292783}
-  - component: {fileID: 5059929300425292786}
   m_Layer: 6
   m_Name: 'Interactable_Carpet (Index: 1)'
   m_TagString: Untagged
@@ -52151,19 +52038,6 @@ MonoBehaviour:
   indicatorTexts: []
   objectPickedupText: {fileID: 0}
   inventoryItem: 0
---- !u!114 &5059929300425292786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5059929300425292781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!4 &5059929300425713613
 Transform:
   m_ObjectHideFlags: 0
@@ -58249,7 +58123,6 @@ GameObject:
   - component: {fileID: 7937279310537064611}
   - component: {fileID: 7937279310537064609}
   - component: {fileID: 7937279310537064608}
-  - component: {fileID: 7937279310537064610}
   m_Layer: 6
   m_Name: 'Interactable_Table (Index: 2)'
   m_TagString: Untagged
@@ -58449,19 +58322,6 @@ MonoBehaviour:
   sceneViewId: 6
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7937279310537064610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7937279310537064607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &7937279310537064611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58851,7 +58711,6 @@ GameObject:
   - component: {fileID: 8446088108495028048}
   - component: {fileID: 8446088108495028046}
   - component: {fileID: 8446088108495028045}
-  - component: {fileID: 8446088108495028047}
   m_Layer: 7
   m_Name: 'Interactable_Lamp (Index: 0)'
   m_TagString: Untagged
@@ -59085,19 +58944,6 @@ MonoBehaviour:
   sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8446088108495028047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8446088108495028043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearRadius: 10
 --- !u!114 &8446088108495028048
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -84,4 +84,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearRadius: 0
+  hearRadius: 10
