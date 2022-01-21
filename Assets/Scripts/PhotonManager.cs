@@ -37,7 +37,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     [SerializeField] TextMeshProUGUI versionText;
 
-    private int currentABVersion = 0;
+    [SerializeField] int amountOfVersions = 0;
+
+    private int currentVersion = 0;
 
     private void Awake()
     {
@@ -70,29 +72,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
             {
-                currentABVersion = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+                currentVersion = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
             }
 
-            int newABVersion = currentABVersion + 1;
+            int newVersion = currentVersion + 1;
 
-            if (newABVersion > 1)
+            if (newVersion > amountOfVersions)
             {
-                newABVersion = 0;
+                newVersion = 0;
             }
 
-            Hashtable ABVersion = new Hashtable();
-            ABVersion.Add("ABVersion", newABVersion);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(ABVersion);
+            Hashtable version = new Hashtable();
+            version.Add("Version", newVersion);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(version);
         }
     }
 
     public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
     {
-        if (propertiesThatChanged.ContainsKey("ABVersion"))
+        if (propertiesThatChanged.ContainsKey("Version"))
         {
-            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"]).ToString();
+            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["Version"]).ToString();
         }
     }
     // End Of Changing AB Version
@@ -172,15 +174,15 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         startGameButton.interactable = true;
         startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
 
-        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
         {
-            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"]).ToString();
+            versionText.text = ((int)PhotonNetwork.CurrentRoom.CustomProperties["Version"]).ToString();
         }
         else
         {
-            Hashtable ABVersion = new Hashtable();
-            ABVersion.Add("ABVersion", 0);
-            PhotonNetwork.CurrentRoom.SetCustomProperties(ABVersion);
+            Hashtable version = new Hashtable();
+            version.Add("Version", 0);
+            PhotonNetwork.CurrentRoom.SetCustomProperties(version);
         }
     }
 

@@ -9,19 +9,14 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
 
-    [SerializeField] GameObject versionA;
-    [SerializeField] GameObject versionB;
-
-    public GameObject[] objectsToTakeOverAsPlayerA;
-    public GameObject[] objectsToTakeOverAsPlayerB;
+    [SerializeField] GameObject[] versions;
 
     [SerializeField] string playerPrefab;
     [SerializeField] string pawnPrefab;
     [SerializeField] Transform playerSpawnPoint;
     [SerializeField] string mainMenuScene;
 
-    [SerializeField] InteractionController[] interactionControllersA;
-    [SerializeField] InteractionController[] interactionControllersB;
+    public List<InteractionControllerItem> interactionControllerItems;
 
     [SerializeField] float cooldownTime = 0.5f;
 
@@ -52,34 +47,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         Instance = this;
 
-        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
         {
-            int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+            int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-            switch (version)
+            foreach (var item in interactionControllerItems[version].objectsToTakeOverAsPlayer)
             {
-                case 0:
-                    foreach (var item in objectsToTakeOverAsPlayerA)
-                    {
-                        item.SetActive(true);
-                    }
-
-                    foreach (var item in objectsToTakeOverAsPlayerB)
-                    {
-                        item.SetActive(false);
-                    }
-                    break;
-                case 1:
-                    foreach (var item in objectsToTakeOverAsPlayerA)
-                    {
-                        item.SetActive(false);
-                    }
-
-                    foreach (var item in objectsToTakeOverAsPlayerB)
-                    {
-                        item.SetActive(true);
-                    }
-                    break;
+                item.SetActive(true);
             }
         }
     }
@@ -103,21 +77,16 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
             {
-                int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+                int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-                switch (version)
+                foreach (var item in versions)
                 {
-                    case 0:
-                        versionA.SetActive(true);
-                        versionB.SetActive(false);
-                        break;
-                    case 1:
-                        versionA.SetActive(false);
-                        versionB.SetActive(true);
-                        break;
+                    item.SetActive(false);
                 }
+
+                versions[version].SetActive(true);
             }
 
             if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
@@ -125,68 +94,39 @@ public class RoomManager : MonoBehaviourPunCallbacks
                 int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
                 Debug.Log("PawnID: " + pawnID);
 
-                if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+                if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
                 {
-                    int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+                    int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-                    switch (version)
+                    foreach (var interactionController in interactionControllerItems[version].interactionControllers)
                     {
-                        case 0:
-                            foreach (var interactionController in interactionControllersA)
-                            {
-                                if (interactionController.GetInteractableIndex() == pawnID)
-                                {
-                                    Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
-                                    isPawn = true;
+                        Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
+                        isPawn = true;
 
-                                    curInteractionController = interactionController;
-                                    curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
+                        curInteractionController = interactionController;
+                        curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
 
-                                    if (curInteractionController.GetComponent<IInteractable>().followObject)
-                                    {
-                                        followPawn = true;
-                                    }
-                                    else
-                                    {
-                                        followPawn = false;
-                                    }
+                        if (curInteractionController.GetComponent<IInteractable>().followObject)
+                        {
+                            followPawn = true;
+                        }
+                        else
+                        {
+                            followPawn = false;
+                        }
 
-                                    pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position, Quaternion.identity);
-                                    break;
-                                }
-                            }
-                            break;
-                        case 1:
-                            foreach (var interactionController in interactionControllersB)
-                            {
-                                if (interactionController.GetInteractableIndex() == pawnID)
-                                {
-                                    Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
-                                    isPawn = true;
-
-                                    curInteractionController = interactionController;
-                                    curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
-
-                                    if (curInteractionController.GetComponent<IInteractable>().followObject)
-                                    {
-                                        followPawn = true;
-                                    }
-                                    else
-                                    {
-                                        followPawn = false;
-                                    }
-
-                                    pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position, Quaternion.identity);
-                                    break;
-                                }
-                            }
-                            break;
+                        pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position, Quaternion.identity);
+                        break;
                     }
                 }
             }
             else
             {
-                PhotonNetwork.Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);
+                if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
+                {
+                    int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
+                    PhotonNetwork.Instantiate(playerPrefab, interactionControllerItems[version].playerSpawnPoint.position, Quaternion.identity);
+                }
             }
         }
     }
@@ -226,77 +166,45 @@ public class RoomManager : MonoBehaviourPunCallbacks
                         int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
                         int newPawnID = pawnID + 1;
 
-                        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+                        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
                         {
                             int version = -1;
-                            version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+                            version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-                            switch (version)
+                            if (newPawnID > interactionControllerItems[version].interactionControllers.Length - 1)
+                                newPawnID = 0;
+
+                            foreach (var interactionController in interactionControllerItems[version].interactionControllers)
                             {
-                                case 0:
-                                    if (newPawnID > interactionControllersA.Length - 1)
-                                        newPawnID = 0;
-
-                                    foreach (var interactionController in interactionControllersA)
+                                if (interactionController.GetInteractableIndex() == newPawnID)
+                                {
+                                    if (!interactionController.GetIsAssigned())
                                     {
-                                        if (interactionController.GetInteractableIndex() == newPawnID)
+                                        curInteractionController.RemoveControl();
+                                        curInteractionController = interactionController;
+                                        interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+
+                                        if (curInteractionController.GetComponent<IInteractable>().followObject)
                                         {
-                                            if (!interactionController.GetIsAssigned())
-                                            {
-                                                curInteractionController.RemoveControl();
-                                                curInteractionController = interactionController;
-                                                interactionController.TakeControl(PhotonNetwork.LocalPlayer);
-
-                                                if (curInteractionController.GetComponent<IInteractable>().followObject)
-                                                {
-                                                    followPawn = true;
-                                                }
-                                                else
-                                                {
-                                                    followPawn = false;
-                                                }
-
-                                                pawnObject.transform.position = interactionController.transform.position;
-                                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
-                                                runAgain = true;
-                                                ChangePawn(context);
-                                                break;
-                                            }
+                                            followPawn = true;
                                         }
-                                    }
-                                    break;
-                                case 1:
-                                    if (newPawnID > interactionControllersB.Length - 1)
-                                        newPawnID = 0;
+                                        else
+                                        {
+                                            followPawn = false;
+                                        }
 
-                                    foreach (var interactionController in interactionControllersB)
+                                        pawnObject.transform.position = interactionController.transform.position;
+                                        PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
+                                        break;
+                                    }
+                                    else
                                     {
-                                        if (interactionController.GetInteractableIndex() == newPawnID)
-                                        {
-                                            if (!interactionController.GetIsAssigned())
-                                            {
-                                                curInteractionController.RemoveControl();
-                                                curInteractionController = interactionController;
-                                                interactionController.TakeControl(PhotonNetwork.LocalPlayer);
-                                                pawnObject.transform.position = interactionController.transform.position;
-                                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
-                                                runAgain = true;
-                                                ChangePawn(context);
-                                                break;
-                                            }
-                                        }
+                                        PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = newPawnID;
+                                        runAgain = true;
+                                        ChangePawn(context);
+                                        break;
                                     }
-                                    break;
+                                }
                             }
                         }
                     }
@@ -316,71 +224,42 @@ public class RoomManager : MonoBehaviourPunCallbacks
             {
                 if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
                 {
-                    if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+                    if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
                     {
                         int version = -1;
-                        version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+                        version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-                        switch (version)
+                        if (_pawnID > interactionControllerItems[version].interactionControllers.Length - 1)
+                            return;
+
+                        foreach (var interactionController in interactionControllerItems[version].interactionControllers)
                         {
-                            case 0:
-                                if (_pawnID > interactionControllersA.Length - 1)
-                                    return;
-
-                                foreach (var interactionController in interactionControllersA)
+                            if (interactionController.GetInteractableIndex() == _pawnID)
+                            {
+                                if (!interactionController.GetIsAssigned())
                                 {
-                                    if (interactionController.GetInteractableIndex() == _pawnID)
+                                    curInteractionController.RemoveControl();
+                                    curInteractionController = interactionController;
+                                    interactionController.TakeControl(PhotonNetwork.LocalPlayer);
+
+                                    if (curInteractionController.GetComponent<IInteractable>().followObject)
                                     {
-                                        if (!interactionController.GetIsAssigned())
-                                        {
-                                            curInteractionController.RemoveControl();
-                                            curInteractionController = interactionController;
-                                            interactionController.TakeControl(PhotonNetwork.LocalPlayer);
-
-                                            if (curInteractionController.GetComponent<IInteractable>().followObject)
-                                            {
-                                                followPawn = true;
-                                            }
-                                            else
-                                            {
-                                                followPawn = false;
-                                            }
-
-                                            pawnObject.transform.position = interactionController.transform.position;
-                                            PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = _pawnID;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }
+                                        followPawn = true;
                                     }
-                                }
-                                break;
-                            case 1:
-                                if (_pawnID > interactionControllersB.Length - 1)
-                                    return;
+                                    else
+                                    {
+                                        followPawn = false;
+                                    }
 
-                                foreach (var interactionController in interactionControllersB)
+                                    pawnObject.transform.position = interactionController.transform.position;
+                                    PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = _pawnID;
+                                    break;
+                                }
+                                else
                                 {
-                                    if (interactionController.GetInteractableIndex() == _pawnID)
-                                    {
-                                        if (!interactionController.GetIsAssigned())
-                                        {
-                                            curInteractionController.RemoveControl();
-                                            curInteractionController = interactionController;
-                                            interactionController.TakeControl(PhotonNetwork.LocalPlayer);
-                                            pawnObject.transform.position = interactionController.transform.position;
-                                            PhotonNetwork.LocalPlayer.CustomProperties["PawnID"] = _pawnID;
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            break;
-                                        }
-                                    }
+                                    break;
                                 }
-                                break;
+                            }
                         }
                     }
                 }
@@ -406,4 +285,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(mainMenuScene);
     }
+}
+
+[System.Serializable]
+public class InteractionControllerItem
+{
+    public string interactionItemName;
+    public InteractionController[] interactionControllers;
+    public Transform playerSpawnPoint;
+    public GameObject[] objectsToTakeOverAsPlayer;
 }

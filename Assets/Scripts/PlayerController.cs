@@ -58,24 +58,13 @@ public class PlayerController : MonoBehaviour
 
         roomManager = FindObjectOfType<RoomManager>();
 
-        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("ABVersion"))
+        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
         {
-            int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["ABVersion"];
+            int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
-            switch (version)
+            foreach (var item in roomManager.interactionControllerItems[version].objectsToTakeOverAsPlayer)
             {
-                case 0:
-                    foreach (var item in roomManager.objectsToTakeOverAsPlayerA)
-                    {
-                        item.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
-                    }
-                    break;
-                case 1:
-                    foreach (var item in roomManager.objectsToTakeOverAsPlayerB)
-                    {
-                        item.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
-                    }
-                    break;
+                item.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.LocalPlayer);
             }
         }
 

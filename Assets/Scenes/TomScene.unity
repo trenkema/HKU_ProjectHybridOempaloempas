@@ -12049,6 +12049,7 @@ MonoBehaviour:
   leaveGameButton: {fileID: 670479734}
   maxPlayersPerRoom: 10
   versionText: {fileID: 770936250}
+  amountOfVersions: 2
 --- !u!1 &1162065024
 GameObject:
   m_ObjectHideFlags: 0
@@ -12260,6 +12261,7 @@ MonoBehaviour:
   - {fileID: 492402088}
   - {fileID: 2017193057}
   - {fileID: 1531754780}
+  objectPickedupText: {fileID: 0}
   inventoryItem: 0
 --- !u!64 &1162065029
 MeshCollider:

@@ -15,8 +15,6 @@ public class NetworkPlaySound : MonoBehaviour
 
     PhotonView PV;
 
-    int interactionIndex = -1;
-
     int chronicIndex = -1;
 
     bool hasPlayed = false;
