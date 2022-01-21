@@ -48,6 +48,10 @@ MonoBehaviour:
   - RPC_PlaySoundAtLocation
   - RPC_PlaySoundAtOwnTransform
   - RPC_PlaySoundAtOwnTransformChronic
+  - RPC_RingThePhone
+  - RPC_PutChairsAtTable
+  - RPC_RemovePanTop
+  - RPC_TVOn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

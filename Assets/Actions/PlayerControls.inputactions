@@ -180,6 +180,38 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "RingPhone",
+                    "type": "Button",
+                    "id": "807d9ae0-991a-41ea-b490-1ae7d28e8094",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "PutChairsAtTable",
+                    "type": "Button",
+                    "id": "76e1f1ab-0042-4d22-af8d-c772ed6a37ca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "RemovePanTop",
+                    "type": "Button",
+                    "id": "cf7d2be4-5833-4384-be65-0b48d0d5d92b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "TVOn",
+                    "type": "Button",
+                    "id": "dabfcdc7-39b3-4470-97a4-116483e95ffe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -642,6 +674,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SelectNumber9",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6a91c47-1f24-4ea5-a050-9a9144804056",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RingPhone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f7a67a2-5500-47e3-bf7a-34b7a34d267a",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "PutChairsAtTable",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ba57a07-9ce5-4940-8519-06c9f2953c89",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "RemovePanTop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "323bb1d8-6332-417b-8dd4-2cb8c778ad51",
+                    "path": "<Keyboard>/v",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TVOn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

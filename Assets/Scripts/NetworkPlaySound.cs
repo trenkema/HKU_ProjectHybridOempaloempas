@@ -11,11 +11,15 @@ public class NetworkPlaySound : MonoBehaviour
 
     public bool playChronic = false;
 
+    public bool repeatable = false;
+
     PhotonView PV;
 
     int interactionIndex = -1;
 
     int chronicIndex = -1;
+
+    bool hasPlayed = false;
 
     private void Awake()
     {
@@ -59,12 +63,15 @@ public class NetworkPlaySound : MonoBehaviour
 
     public void PlaySoundAtOwnTransformChronic()
     {
-        Debug.Log("Test");
+        if (!hasPlayed || repeatable)
+        {
+            Debug.Log("Test");
 
-        if ((chronicIndex + 1) < audioClipLibrary.Length)
-            chronicIndex++;
+            if ((chronicIndex + 1) < audioClipLibrary.Length)
+                chronicIndex++;
 
-        PV.RPC("RPC_PlaySoundAtOwnTransformChronic", RpcTarget.All, chronicIndex);
+            PV.RPC("RPC_PlaySoundAtOwnTransformChronic", RpcTarget.All, chronicIndex);
+        }
     }
 
     [PunRPC]
@@ -83,6 +90,7 @@ public class NetworkPlaySound : MonoBehaviour
     [PunRPC]
     private void RPC_PlaySoundAtOwnTransformChronic(int _index)
     {
+        hasPlayed = true;
         audioSource.clip = audioClipLibrary[_index];
         audioSource.Play();
         chronicIndex = _index;

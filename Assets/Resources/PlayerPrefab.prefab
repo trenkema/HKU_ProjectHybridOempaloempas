@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupHolder: {fileID: 8682126554667265806}
   checkRate: 0.05
-  maxCheckDistance: 2
+  maxCheckDistance: 3
   layerMask:
     serializedVersion: 2
     m_Bits: 192
@@ -1494,7 +1494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f70ac36e34da947b01d1004658cc4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hearRadius: 5
+  hearRadius: 4
 --- !u!114 &1606891161667888086
 MonoBehaviour:
   m_ObjectHideFlags: 0
