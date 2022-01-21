@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TomScene.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: ef716476d0d426740be054607f1e8746
   - enabled: 1
-    path: Assets/Scenes/Tom.unity
+    path: Assets/Scenes/Level.unity
     guid: 76c4fe6f55586df488fcb48fc150ab05
   m_configObjects: {}

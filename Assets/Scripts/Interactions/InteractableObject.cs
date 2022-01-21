@@ -18,10 +18,14 @@ public class InteractableObject : IInteractable
     private PhotonView PV;
     private Rigidbody rb;
 
+    private Vector3 oldScale;
+
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
+
+        oldScale = transform.localScale;
     }
 
     public override string GetInteractPrompt(InteractableTypes _interactableType)
@@ -123,7 +127,7 @@ public class InteractableObject : IInteractable
                 rb.useGravity = false;
                 rb.isKinematic = true;
                 rb.velocity = Vector3.zero;
-                transform.parent = GO.GetComponent<Pickup>().pickupHolder;
+                transform.SetParent(GO.GetComponent<Pickup>().pickupHolder, true);
                 transform.localPosition = Vector3.zero;
                 transform.localRotation = Quaternion.identity;
             }
@@ -135,6 +139,7 @@ public class InteractableObject : IInteractable
         else if (_viewID == -1 && interactableIndex == _interactableIndex)
         {
             transform.SetParent(null);
+            transform.localScale = oldScale;
             rb.useGravity = true;
             rb.isKinematic = false;
         }

@@ -9,14 +9,17 @@ public class RoomManager : MonoBehaviourPunCallbacks
 {
     public static RoomManager Instance;
 
+    [Header("Setup")]
+
     [SerializeField] GameObject[] versions;
 
     [SerializeField] string playerPrefab;
     [SerializeField] string pawnPrefab;
-    [SerializeField] Transform playerSpawnPoint;
     [SerializeField] string mainMenuScene;
 
     public List<InteractionControllerItem> interactionControllerItems;
+
+    [Header("Pawns")]
 
     [SerializeField] float cooldownTime = 0.5f;
 
