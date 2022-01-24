@@ -8,9 +8,8 @@ using UnityEngine.InputSystem;
 public class InteractableObject : IInteractable
 {
     [SerializeField] string displayName;
-    [SerializeField] string takeableName;
-    [SerializeField] string insertableName;
     [SerializeField] GameObject[] indicatorTexts;
+    [SerializeField] GameObject[] controlTexts;
 
     [SerializeField] GameObject objectPickedupText;
 
@@ -28,20 +27,20 @@ public class InteractableObject : IInteractable
         oldScale = transform.localScale;
     }
 
-    public override string GetInteractPrompt(InteractableTypes _interactableType)
+    public override string GetInteractPrompt(InteractableTypes _interactableType, string _interactableName)
     {
         switch (_interactableType)
         {
             case InteractableTypes.Speakable:
-                return string.Format("Speak With {0}", displayName);
+                return string.Format("Speak With {0}", _interactableName);
             case InteractableTypes.Pickupable:
-                return string.Format("Pickup {0}", displayName);
+                return string.Format("Pickup {0}", _interactableName);
             case InteractableTypes.Insertable:
-                return string.Format("Insert {0}", insertableName);
+                return string.Format("Insert {0}", _interactableName);
             case InteractableTypes.Takeable:
-                return string.Format("Take {0}", takeableName);
+                return string.Format("Take {0}", _interactableName);
             case InteractableTypes.Openable:
-                return string.Format("Open/Close {0}", displayName);
+                return string.Format("Open/Close {0}", _interactableName);
         }
 
         return null;
@@ -76,15 +75,28 @@ public class InteractableObject : IInteractable
             return;
 
         if (!_takeControl)
-            objectIdentifierText.SetActive(false);
+            objectIdentifierText.gameObject.SetActive(false);
         else
-            objectIdentifierText.SetActive(true);
+        {
+            objectIdentifierText.gameObject.SetActive(true);
+            objectIdentifierText.text = displayName;
+        }
 
         if (interactableIndex == _interactableIndex)
         {
             foreach (var indicatorText in indicatorTexts)
             {
                 indicatorText.SetActive(false);
+            }
+
+            foreach (var controlText in controlTexts)
+            {
+                controlText.SetActive(false);
+            }
+
+            foreach (var item in controlTypeSelector)
+            {
+                controlTexts[(int)item.controlTypes].SetActive(true);
             }
 
             isAssigned = _takeControl;
@@ -157,4 +169,11 @@ public class InteractableObject : IInteractable
 public class InteractableTypeSelector
 {
     public InteractableTypes interactableTypes;
+    public string interactableName;
+}
+
+[System.Serializable]
+public class ControlTypeSelector
+{
+    public ControlTypes controlTypes;
 }

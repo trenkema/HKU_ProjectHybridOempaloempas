@@ -97,26 +97,26 @@ public class InteractionManager : MonoBehaviourPun
             {
                 case InteractableTypes.Pickupable:
                     promptPickupText.gameObject.SetActive(true);
-                    promptPickupText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Pickupable));
+                    promptPickupText.text = string.Format("<b>[E]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Pickupable, interactable.interactableName));
                     break;
                 case InteractableTypes.Speakable:
                     promptTalkText.gameObject.SetActive(true);
-                    promptTalkText.text = string.Format("<b>[Q]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Speakable));
+                    promptTalkText.text = string.Format("<b>[Q]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Speakable, interactable.interactableName));
                     break;
                 case InteractableTypes.Insertable:
                     if (curPickupableID == curInteractable.insertableObjectID)
                     {
                         promptPickupText.gameObject.SetActive(true);
-                        promptPickupText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable));
+                        promptPickupText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Insertable, interactable.interactableName));
                     }
                     break;
                 case InteractableTypes.Takeable:
                     promptPickupText.gameObject.SetActive(true);
-                    promptPickupText.text = string.Format("<b>[T]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Takeable));
+                    promptPickupText.text = string.Format("<b>[T]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Takeable, interactable.interactableName));
                     break;
                 case InteractableTypes.Openable:
                     promptOpenText.gameObject.SetActive(true);
-                    promptOpenText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Openable));
+                    promptOpenText.text = string.Format("<b>[F]</b> {0}", curInteractable.GetInteractPrompt(InteractableTypes.Openable, interactable.interactableName));
                     break;
             }
 

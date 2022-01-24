@@ -39,6 +39,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private bool followPawn = false;
 
+    // Stored Variables
+    private int version = -1;
+    private int pawnID = -1;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -52,12 +56,19 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
         {
-            int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
+            version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
 
             foreach (var item in interactionControllerItems[version].objectsToTakeOverAsPlayer)
             {
                 item.SetActive(true);
             }
+
+            foreach (var item in versions)
+            {
+                item.SetActive(false);
+            }
+
+            versions[version].SetActive(true);
         }
     }
 
@@ -80,56 +91,34 @@ public class RoomManager : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
-            {
-                int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
-
-                foreach (var item in versions)
-                {
-                    item.SetActive(false);
-                }
-
-                versions[version].SetActive(true);
-            }
-
             if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
             {
-                int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
-                Debug.Log("PawnID: " + pawnID);
+                pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
 
-                if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
+                foreach (var interactionController in interactionControllerItems[version].interactionControllers)
                 {
-                    int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
+                    Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
+                    isPawn = true;
 
-                    foreach (var interactionController in interactionControllerItems[version].interactionControllers)
+                    curInteractionController = interactionController;
+                    curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
+
+                    if (curInteractionController.GetComponent<IInteractable>().followObject)
                     {
-                        Debug.Log("Found Pawn + Pawn ID: " + interactionController.GetInteractableIndex());
-                        isPawn = true;
-
-                        curInteractionController = interactionController;
-                        curInteractionController.TakeControl(PhotonNetwork.LocalPlayer);
-
-                        if (curInteractionController.GetComponent<IInteractable>().followObject)
-                        {
-                            followPawn = true;
-                        }
-                        else
-                        {
-                            followPawn = false;
-                        }
-
-                        pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position, Quaternion.identity);
-                        break;
+                        followPawn = true;
                     }
+                    else
+                    {
+                        followPawn = false;
+                    }
+
+                    pawnObject = PhotonNetwork.Instantiate(pawnPrefab, curInteractionController.transform.position, Quaternion.identity);
+                    break;
                 }
             }
             else
             {
-                if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
-                {
-                    int version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
-                    PhotonNetwork.Instantiate(playerPrefab, interactionControllerItems[version].playerSpawnPoint.position, Quaternion.identity);
-                }
+                PhotonNetwork.Instantiate(playerPrefab, interactionControllerItems[version].playerSpawnPoint.position, Quaternion.identity);
             }
         }
     }
@@ -164,16 +153,13 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
                 if (isPawn)
                 {
-                    if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
+                    if (pawnID != -1)
                     {
-                        int pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
+                        pawnID = (int)PhotonNetwork.LocalPlayer.CustomProperties["PawnID"];
                         int newPawnID = pawnID + 1;
 
-                        if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
+                        if (version != -1)
                         {
-                            int version = -1;
-                            version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
-
                             if (newPawnID > interactionControllerItems[version].interactionControllers.Length - 1)
                                 newPawnID = 0;
 
@@ -225,13 +211,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
             if (isPawn)
             {
-                if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("PawnID"))
+                if (pawnID != -1)
                 {
-                    if (PhotonNetwork.CurrentRoom.CustomProperties.ContainsKey("Version"))
+                    if (version != -1)
                     {
-                        int version = -1;
-                        version = (int)PhotonNetwork.CurrentRoom.CustomProperties["Version"];
-
                         if (_pawnID > interactionControllerItems[version].interactionControllers.Length - 1)
                             return;
 

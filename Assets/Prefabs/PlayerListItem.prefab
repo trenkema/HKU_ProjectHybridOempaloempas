@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2af632cea77c6143b34f07d891308bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownPlayerTextColor: {r: 0.36078432, g: 0.972549, b: 0.3254902, a: 1}
   playerNameText: {fileID: 6455869979961061148}
   pawnID: {fileID: 1368981406899828395}
   maxPawnID: 8

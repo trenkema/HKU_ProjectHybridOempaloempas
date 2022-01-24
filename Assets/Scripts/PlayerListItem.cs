@@ -8,6 +8,7 @@ using TMPro;
 
 public class PlayerListItem : MonoBehaviourPunCallbacks
 {
+    [SerializeField] Color ownPlayerTextColor;
     [SerializeField] TextMeshProUGUI playerNameText;
     [SerializeField] TextMeshProUGUI pawnID;
     [SerializeField] int maxPawnID = 6;
@@ -17,6 +18,9 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
     {
         player = _player;
         playerNameText.text = _player.NickName;
+
+        if (player == PhotonNetwork.LocalPlayer)
+            playerNameText.color = ownPlayerTextColor;
 
         int currentPawnID = -1;
 
@@ -43,6 +47,9 @@ public class PlayerListItem : MonoBehaviourPunCallbacks
 
     public void ChangePawnID()
     {
+        if (player != PhotonNetwork.LocalPlayer)
+            return;
+
         int currentPawnID = -1;
 
         if (player.CustomProperties.ContainsKey("PawnID"))

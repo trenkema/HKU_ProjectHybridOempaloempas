@@ -106,6 +106,29 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         PlayerPrefs.SetString("NickName", _newNickname);
     }
 
+    public void SetNickName(TMP_InputField _inputField)
+    {
+        if (_inputField.text == string.Empty)
+        {
+            _inputField.text = PhotonNetwork.NickName;
+            return;
+        }
+
+        PhotonNetwork.NickName = _inputField.text;
+
+        PlayerPrefs.SetString("NickName", _inputField.text);
+    }
+
+    public void GetNickName(TMP_InputField _inputField)
+    {
+        _inputField.text = PhotonNetwork.NickName;
+    }
+
+    public void ClearInputField(TMP_InputField _inputField)
+    {
+        _inputField.text = "";
+    }
+
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
